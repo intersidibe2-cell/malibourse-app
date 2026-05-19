@@ -2,8 +2,6 @@ name: Deploy to Aeza Server
 
 on:
   workflow_dispatch:
-  push:
-    branches: [master]
 
 jobs:
   deploy:
@@ -12,21 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup env file
-        uses: appleboy/ssh-action@v1.2.1
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cat > /root/malibourse-app/.env.production << ENDENV
-DATABASE_URL=postgresql://malibourse_admin:Rg6kHq9zVp2x@localhost:5432/malibourse
-JWT_SECRET=8f3a2b1c9d4e5f6a7b8c9d0e1f2a3b4c
-NEXT_PUBLIC_APP_URL=https://etudiantsmali.ru
-ENDENV
-            cp /root/malibourse-app/.env.production /root/malibourse-app/.env.local
-
-      - name: Deploy application
+      - name: Setup env and deploy
         uses: appleboy/ssh-action@v1.2.1
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -34,46 +18,52 @@ ENDENV
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /root/malibourse-app
+
+            # Create env file
+            echo 'DATABASE_URL=postgresql://malibourse_admin:Rg6kHq9zVp2x@localhost:5432/malibourse' > .env.production
+            echo 'JWT_SECRET=8f3a2b1c9d4e5f6a7b8c9d0e1f2a3b4c' >> .env.production
+            echo 'NEXT_PUBLIC_APP_URL=https://etudiantsmali.ru' >> .env.production
+            cp .env.production .env.local
+
+            # Pull latest
             git pull origin master
+
+            # Install and build
+            command -v node || (curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt install -y nodejs)
             npm install
             npm run build
+
+            # Configure Nginx
+            echo 'server {' > /etc/nginx/sites-available/etudiantsmali.ru
+            echo '    listen 80;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '    server_name etudiantsmali.ru www.etudiantsmali.ru;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '    location / {' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_pass http://localhost:3000;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_http_version 1.1;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_set_header Upgrade $http_upgrade;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_set_header Connection '"'"'upgrade'"'"';' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_set_header Host $host;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_cache_bypass $http_upgrade;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_set_header X-Real-IP $remote_addr;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        proxy_set_header X-Forwarded-Proto $scheme;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '    }' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '    location /_next/static {' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        alias /root/malibourse-app/.next/static;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        expires 365d;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '        access_log off;' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '    }' >> /etc/nginx/sites-available/etudiantsmali.ru
+            echo '}' >> /etc/nginx/sites-available/etudiantsmali.ru
+
+            ln -sf /etc/nginx/sites-available/etudiantsmali.ru /etc/nginx/sites-enabled/
+            rm -f /etc/nginx/sites-enabled/default
+            if nginx -t; then systemctl reload nginx; fi
+
+            # Start app
             pm2 restart malibourse || pm2 start npm --name malibourse -- start
             pm2 save
 
-      - name: Configure Nginx
-        uses: appleboy/ssh-action@v1.2.1
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cat > /etc/nginx/sites-available/etudiantsmali.ru << ENDNGINX
-server {
-    listen 80;
-    server_name etudiantsmali.ru www.etudiantsmali.ru;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host \$host;
-        proxy_cache_bypass \$http_upgrade;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-    }
-
-    location /_next/static {
-        alias /root/malibourse-app/.next/static;
-        expires 365d;
-        access_log off;
-    }
-}
-ENDNGINX
-            ln -sf /etc/nginx/sites-available/etudiantsmali.ru /etc/nginx/sites-enabled/
-            rm -f /etc/nginx/sites-enabled/default
-            nginx -t && systemctl reload nginx
-
-      - name: Done
-        run: echo "Deployment complete"
+            echo ""
+            echo "============================================"
+            echo "✅ DEPLOYMENT COMPLETE"
+            echo "============================================"
