@@ -67,3 +67,18 @@ jobs:
             echo "============================================"
             echo "✅ DEPLOYMENT COMPLETE"
             echo "============================================"
+
+      - name: Setup SSL (certbot)
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            if command -v certbot; then
+              certbot --nginx -d etudiantsmali.ru -d www.etudiantsmali.ru --non-interactive --agree-tos -m sidibe3131@mail.ru --no-redirect 2>&1 || echo "SSL skipped (DNS not propagated yet)"
+              echo "SSL configuration attempted"
+            else
+              apt install -y certbot python3-certbot-nginx
+              certbot --nginx -d etudiantsmali.ru -d www.etudiantsmali.ru --non-interactive --agree-tos -m sidibe3131@mail.ru --no-redirect 2>&1 || echo "SSL skipped"
+            fi
