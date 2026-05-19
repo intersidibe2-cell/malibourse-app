@@ -1,0 +1,32 @@
+name: Deploy to Aeza Server
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || '22' }}
+          script: |
+            cd /root/malibourse-app
+            git pull origin master
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" || true
+            command -v node || curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt install -y nodejs
+            npm install
+            npm run build
+            pm2 restart malibourse || pm2 start npm --name malibourse -- start
+            pm2 save
+            echo "✅ Deployed successfully!"
