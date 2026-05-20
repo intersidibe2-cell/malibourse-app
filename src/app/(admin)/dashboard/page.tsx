@@ -8,8 +8,8 @@ import {
   ArrowUpRight, Bell,
   BookOpen, Shield, Briefcase, MapPin, Lock
 } from "lucide-react";
-import { BoursePieChart } from "@/components/charts/BoursePieChart";
-import { PaymentBarChart } from "@/components/charts/PaymentBarChart";
+import BoursePieChart from "@/components/charts/BoursePieChart";
+import PaymentBarChart from "@/components/charts/PaymentBarChart";
 
 interface DashboardStats {
   totalEtudiants: number;
