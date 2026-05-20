@@ -100,13 +100,13 @@ export default function LoginPage() {
             )}
 
             <div>
-              <Label htmlFor="email">{t("email")}</Label>
+              <Label htmlFor="email">Login (nom d'utilisateur)</Label>
               <Input
                 id="email"
-                type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 required
+                placeholder="ambassadeur, culturel, comptable..."
               />
             </div>
             <div>
