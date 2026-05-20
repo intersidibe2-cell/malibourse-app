@@ -115,24 +115,24 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 pt-32 pb-20">
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-2 mb-6 animate-fade-in">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 mb-6 animate-fade-in">
               <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
               <span className="text-yellow-300/80 text-sm font-medium tracking-wider uppercase">Ambassade de la République du Mali à Moscou</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 animate-fade-in-up">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 animate-fade-in-up text-center">
               Plateforme de Gestion des<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">Ressortissants Maliens</span>
               <br />en Russie
             </h1>
 
-            <p className="text-lg md:text-xl text-green-100/90 mb-10 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            <p className="text-lg md:text-xl text-green-100/90 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up text-center" style={{ animationDelay: "0.2s" }}>
               L'Ambassade du Mali à Moscou vous accompagne au quotidien dans toutes vos démarches 
               administratives et consulaires sur l'ensemble du territoire de la Fédération de Russie.
             </p>
 
-            <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+            <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
               <Button size="lg" onClick={() => router.push("/inscription")} className="bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold px-8 py-6 text-lg shadow-2xl hover:shadow-yellow-500/30 transition-all hover:scale-105">
                 S'inscrire sur la plateforme
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -142,7 +142,7 @@ export default function HomePage() {
               </Button>
               <Button size="lg" variant="outline" onClick={() => router.push("/arrivee")} className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg backdrop-blur-sm">
                 <MapPinned className="w-5 h-5 mr-2" />
-                Signaler mon arrivée
+                Signalement arrivée
               </Button>
             </div>
           </div>
@@ -207,9 +207,9 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4">Nos Services</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
-              L'Ambassade du Mali à Moscou propose des services adaptés à chaque situation
+            <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4 text-center">Nos Services</h2>
+            <p className="text-gray-500 max-w-2xl mx-auto text-center">
+              L'Ambassade du Mali à Moscou propose des services adaptés à chaque situation des ressortissants maliens en Fédération de Russie.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -244,11 +244,11 @@ export default function HomePage() {
             Inscrivez-vous pour faciliter vos démarches administratives.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" onClick={() => router.push("/inscription")} className="bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold px-10 py-6 text-lg shadow-xl hover:shadow-yellow-500/30">
+            <Button size="lg" onClick={() => router.push("/inscription")} className="bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold px-10 py-6 text-lg shadow-xl hover:shadow-yellow-500/30 transition-all hover:scale-105">
               S'inscrire maintenant
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => router.push("/doleances/soumettre")} className="border-2 border-white/20 text-white hover:bg-white/10 px-10 py-6 text-lg">
+            <Button size="lg" variant="outline" onClick={() => router.push("/doleances/soumettre")} className="border-2 border-white/20 text-white hover:bg-white/10 px-10 py-6 text-lg transition-all">
               Nous contacter
             </Button>
           </div>
