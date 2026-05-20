@@ -73,7 +73,7 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #14532d 0%, #166534 50%, #15803d 100%)" }}>
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "40px 40px" }}
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
         <div className="max-w-7xl mx-auto px-4 py-20 md:py-32 relative z-10">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-4">
