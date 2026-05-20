@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { verifyToken } from "@/lib/auth";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const token = request.cookies.get("token")?.value;
-  const isLoggedIn = !!token;
-
   const locale = request.cookies.get("NEXT_LOCALE")?.value;
   if (!locale || !["fr", "ru"].includes(locale)) {
     const response = NextResponse.next();
@@ -14,23 +13,31 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  const isLoginPage = pathname === "/login";
   const isPublicPage =
     pathname === "/" ||
+    pathname.startsWith("/inscription") ||
     pathname.startsWith("/declaration-arrivee") ||
     pathname.startsWith("/doleances") ||
     pathname.startsWith("/enregistrement-contractuel") ||
     pathname.startsWith("/presentation") ||
+    pathname.startsWith("/espace-ressortissant") ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/_next") ||
-    pathname.startsWith("/api");
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/upload");
 
-  if (!isLoggedIn && !isPublicPage) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  const isAmbassadeRoute = pathname.startsWith("/ambassade");
+
+  if (!token && isAmbassadeRoute) {
+    return NextResponse.redirect(new URL("/ambassade/login", request.url));
   }
 
-  if (isLoggedIn && isLoginPage) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+  if (token && pathname === "/ambassade/login") {
+    return NextResponse.redirect(new URL("/ambassade/dashboard", request.url));
+  }
+
+  if (token && pathname === "/login") {
+    return NextResponse.redirect(new URL("/ambassade/dashboard", request.url));
   }
 
   return NextResponse.next();
