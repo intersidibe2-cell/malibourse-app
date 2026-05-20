@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Loader2, Zap } from "lucide-react";
+import { Loader2, Zap, FileText, Download } from "lucide-react";
 
 export default function PaiementsPage() {
   const t = useTranslations();
@@ -19,6 +19,28 @@ export default function PaiementsPage() {
   const [bulkAnnee, setBulkAnnee] = useState(new Date().getFullYear().toString());
   const [bulkLoading, setBulkLoading] = useState(false);
   const [bulkResult, setBulkResult] = useState("");
+  const [fileGenMois, setFileGenMois] = useState(new Date().toLocaleString("fr", { month: "long" }));
+  const [fileGenAnnee, setFileGenAnnee] = useState(new Date().getFullYear().toString());
+  const [fileGenLoading, setFileGenLoading] = useState(false);
+  const [fileGenResult, setFileGenResult] = useState<any>(null);
+
+  const handleGenerateFile = async (format: string) => {
+    setFileGenLoading(true);
+    setFileGenResult(null);
+    try {
+      const res = await fetch("/api/paiements/generer-fichier", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mois: fileGenMois, annee: fileGenAnnee, format }),
+      });
+      const data = await res.json();
+      setFileGenResult(data);
+    } catch {
+      setFileGenResult({ error: "Erreur" });
+    } finally {
+      setFileGenLoading(false);
+    }
+  };
 
   const handleBulkGenerate = async () => {
     setBulkLoading(true);
@@ -81,6 +103,78 @@ export default function PaiementsPage() {
     </Dialog>
   );
 
+  const fileGenButton = (
+    <Dialog open={!!fileGenResult} onOpenChange={() => setFileGenResult(null)}>
+      <DialogTrigger asChild>
+        <Button variant="default" size="sm">
+          <FileText className="w-4 h-4 mr-1" />
+          Fichier banque
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>Fichier de paiement bancaire</DialogTitle>
+        </DialogHeader>
+        <div className="py-4 space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label>Mois</Label>
+              <Select value={fileGenMois} onValueChange={setFileGenMois}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"].map((m) => (
+                    <SelectItem key={m} value={m}>{m}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Année</Label>
+              <Input type="number" value={fileGenAnnee} onChange={(e) => setFileGenAnnee(e.target.value)} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            <Button onClick={() => handleGenerateFile("tsv")} disabled={fileGenLoading} className="bg-green-700 hover:bg-green-800">
+              {fileGenLoading ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Download className="w-4 h-4 mr-1" />}
+              Générer TSV
+            </Button>
+          </div>
+
+          {fileGenResult?.error && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{fileGenResult.error}</div>
+          )}
+
+          {fileGenResult?.content && (
+            <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+              <p className="font-medium text-green-800 text-sm">{fileGenResult.total_students} étudiants · {fileGenResult.total_amount.toLocaleString()} {fileGenResult.devise}</p>
+              <p className="text-xs text-green-600 mt-1">Fichier généré. Utilisez le bouton ci-dessous pour télécharger.</p>
+              <Button
+                size="sm"
+                variant="outline"
+                className="mt-2"
+                onClick={() => {
+                  const blob = new Blob([fileGenResult.content], { type: "text/tab-separated-values" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = `${fileGenResult.filename || "paiement"}.tsv`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+              >
+                <Download className="w-4 h-4 mr-1" /> Télécharger
+              </Button>
+            </div>
+          )}
+        </div>
+        <DialogClose asChild>
+          <Button variant="outline">Fermer</Button>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  );
+
   return (
     <CrudPage
       title={t("nav.paiements")}
@@ -118,7 +212,7 @@ export default function PaiementsPage() {
         { key: "statut", label: "Statut", render: (v) => <StatusBadge status={v as string} /> },
         { key: "date_paiement", label: "Date", render: (v) => formatDate(v as string) },
       ]}
-      extraButtons={bulkButton}
+      extraButtons={<div className="flex gap-2">{bulkButton}{fileGenButton}</div>}
     />
   );
 }
