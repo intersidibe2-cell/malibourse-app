@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     }
 
     const result = await query(
-      "SELECT id, email, nom, prenom, role FROM profiles WHERE id = $1",
+      "SELECT id, email, nom, prenom, role, role_specifique FROM profiles WHERE id = $1",
       [payload.id]
     );
 

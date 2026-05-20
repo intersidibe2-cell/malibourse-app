@@ -15,7 +15,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   useEffect(() => {
     fetch("/api/auth/me")
       .then(r => r.json())
-      .then(d => d.user?.role && setRole(d.user.role))
+      .then(d => {
+        const r = d.user?.role_specifique || d.user?.role;
+        if (r) setRole(r);
+      })
       .catch(() => {});
   }, []);
 
