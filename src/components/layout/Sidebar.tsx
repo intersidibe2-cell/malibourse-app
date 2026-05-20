@@ -56,7 +56,7 @@ export default function Sidebar({ collapsed, onToggle }: SidebarProps) {
         </div>
         {!collapsed && (
           <div className="overflow-hidden">
-            <div className="text-yellow-400 font-bold text-base leading-tight">GestBourse Mali</div>
+                    <div className="text-yellow-400 font-bold text-base leading-tight">Portail Ambassade</div>
             <div className="text-green-200 text-xs">Ambassade - Moscou</div>
           </div>
         )}

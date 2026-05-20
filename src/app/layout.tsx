@@ -15,11 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GestBourse Mali - Ambassade du Mali à Moscou",
-  description: "Plateforme de gestion centralisée pour les boursiers maliens en Fédération de Russie",
+  title: "Portail Ambassade Mali à Moscou",
+  description: "Portail numérique de l'Ambassade du Mali à Moscou pour la gestion des ressortissants maliens en Fédération de Russie",
   metadataBase: new URL("https://etudiantsmali.ru"),
   openGraph: {
-    title: "GestBourse Mali - Ambassade du Mali à Moscou",
+    title: "Portail Ambassade Mali à Moscou",
     description: "Plateforme de gestion centralisée pour les boursiers maliens en Fédération de Russie",
     url: "https://etudiantsmali.ru",
     siteName: "GestBourse Mali",
