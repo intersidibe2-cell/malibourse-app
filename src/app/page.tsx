@@ -50,12 +50,12 @@ export default function HomePage() {
   }, []);
 
   const services = [
-    { icon: GraduationCap, title: "Étudiants Boursiers", desc: "Suivi des bourses et paiements mensuels", href: "/inscription", color: "from-emerald-500 to-green-600" },
-    { icon: BookOpen, title: "Étudiants Contractuels", desc: "Enregistrement et accompagnement", href: "/inscription", color: "from-blue-500 to-blue-600" },
-    { icon: Shield, title: "Étudiants Militaires", desc: "Formation des officiers maliens", href: "/inscription", color: "from-amber-500 to-yellow-600" },
-    { icon: Briefcase, title: "Travailleurs", desc: "Accompagnement professionnel", href: "/inscription", color: "from-orange-500 to-red-600" },
-    { icon: MapPin, title: "Visiteurs & Touristes", desc: "Déclaration d'arrivée et assistance", href: "/inscription", color: "from-purple-500 to-purple-600" },
-    { icon: House, title: "Résidents Permanents", desc: "Suivi des Maliens établis en Russie", href: "/inscription", color: "from-teal-500 to-teal-600" },
+    { icon: GraduationCap, title: "Étudiants Boursiers", desc: "Suivi des bourses et paiements mensuels", href: "/inscription", color: "from-emerald-500 to-green-600", urgent: false },
+    { icon: BookOpen, title: "Étudiants Contractuels", desc: "Enregistrement et accompagnement", href: "/inscription", color: "from-blue-500 to-blue-600", urgent: false },
+    { icon: Shield, title: "Étudiants Militaires", desc: "Formation des officiers maliens", href: "/inscription", color: "from-amber-500 to-yellow-600", urgent: false },
+    { icon: Briefcase, title: "Travailleurs", desc: "Accompagnement professionnel", href: "/inscription", color: "from-orange-500 to-red-600", urgent: false },
+    { icon: MapPin, title: "Visiteurs & Touristes", desc: "Déclaration d'arrivée et assistance", href: "/inscription", color: "from-purple-500 to-purple-600", urgent: false },
+    { icon: House, title: "Résidents Permanents", desc: "Suivi des Maliens établis en Russie", href: "/inscription", color: "from-teal-500 to-teal-600", urgent: false },
   ];
 
   const urgentServices = [
