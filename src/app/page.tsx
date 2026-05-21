@@ -9,7 +9,7 @@ import {
   ArrowRight, Globe, GraduationCap, BookOpen, Shield, 
   Briefcase, MapPin, House, FileQuestion, Lock, 
   ChevronRight, Star, Phone, Mail, MapPinned, 
-  Users, Building2, Award, HeartHandshake
+  Users, Building2, Award, HeartHandshake, Construction
 } from "lucide-react";
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -61,6 +61,7 @@ export default function HomePage() {
   const urgentServices = [
     { icon: FileQuestion, title: "Sans Papiers", desc: "Aide confidentielle", href: "/inscription", color: "from-red-500 to-red-600", urgent: true },
     { icon: Lock, title: "Assistance Détention", desc: "Suivi consulaire urgent", href: "/inscription", color: "from-gray-700 to-gray-900", urgent: true },
+    { icon: Construction, title: "Services à venir", desc: "Légalisation, RDV, passeport, certificats...", href: "/services", color: "from-amber-500 to-amber-600", urgent: false },
   ];
 
   const toggleLocale = () => {
