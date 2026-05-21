@@ -1,26 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Globe, Bell, Shield, BarChart3, GraduationCap, ArrowRight } from "lucide-react";
-import { useLocale } from "next-intl";
+import { ArrowLeft, Building2, Users, GraduationCap, Globe, Shield, Bell, BarChart3 } from "lucide-react";
 
 export default function PresentationPage() {
-  const t = useTranslations("public");
-  const appT = useTranslations("app");
-  const navT = useTranslations("nav");
-  const router = useRouter();
-  const locale = useLocale();
-
-  const features = [
-    { icon: Globe, title: t("feature1Title"), desc: t("feature1Desc") },
-    { icon: Bell, title: t("feature2Title"), desc: t("feature2Desc") },
-    { icon: Shield, title: t("feature3Title"), desc: t("feature3Desc") },
-    { icon: BarChart3, title: t("feature4Title"), desc: t("feature4Desc") },
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50">
       <div className="flex h-1.5">
@@ -36,63 +19,79 @@ export default function PresentationPage() {
               M
             </div>
             <div>
-              <span className="font-bold text-green-900">{appT("name")}</span>
-              <span className="text-gray-500 text-sm ml-2 hidden md:inline">{appT("subtitle")}</span>
+              <span className="font-bold text-green-900">Ambassade du Mali en Fédération de Russie</span>
+              <span className="text-gray-500 text-sm ml-2 hidden md:inline">Portail des Ressortissants</span>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Link href={`/${locale === "fr" ? "" : "ru"}login`} className="text-sm text-green-700 hover:text-green-800 font-medium">
-              {navT("login")}
+            <Link href="/login" className="text-sm text-green-700 hover:text-green-800 font-medium">
+              Ambassade
             </Link>
-            <Button size="sm" onClick={() => router.push("/declaration-arrivee")}>
-              {t("declarationArrivee")}
-            </Button>
+            <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
+              Accueil
+            </Link>
           </div>
         </div>
       </header>
 
-      <section className="max-w-6xl mx-auto px-4 py-20 text-center">
-        <GraduationCap className="w-16 h-16 mx-auto text-green-700 mb-6" />
-        <h1 className="text-4xl md:text-5xl font-bold text-green-900 mb-4">
-          {t("presentationTitle")}
-        </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-          {t("presentationSubtitle")}
+      <section className="max-w-6xl mx-auto px-4 py-16 text-center">
+        <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-green-100 flex items-center justify-center">
+          <Building2 className="w-8 h-8 text-green-700" />
+        </div>
+        <h1 className="text-3xl md:text-5xl font-bold text-green-900 mb-4">À propos</h1>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          L'Ambassade du Mali en Fédération de Russie met à disposition des ressortissants maliens
+          une plateforme numérique centralisée pour la gestion des démarches consulaires, le suivi
+          des dossiers et la communication avec les services de l'ambassade.
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Button size="lg" className="bg-green-700 hover:bg-green-800" onClick={() => router.push("/declaration-arrivee")}>
-            {t("declarationArrivee")}
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
-          <Button size="lg" variant="outline" onClick={() => router.push("/doleances/soumettre")}>
-            {t("soumettreDoleance")}
-          </Button>
-          <Button size="lg" variant="outline" onClick={() => router.push("/enregistrement-contractuel")}>
-            {t("enregistrementContractuel")}
-          </Button>
+      </section>
+
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              { icon: Globe, title: "Accessible en ligne", desc: "Gérez vos démarches depuis n'importe où, 24h/24 et 7j/7" },
+              { icon: Bell, title: "Notifications", desc: "Alertes en temps réel pour le suivi de vos dossiers" },
+              { icon: Shield, title: "Données protégées", desc: "Hébergement sécurisé en Russie, conformité RGPD" },
+              { icon: BarChart3, title: "Suivi en temps réel", desc: "Tableau de bord dynamique avec statistiques actualisées" },
+            ].map((f, i) => (
+              <div key={i} className="bg-gray-50 rounded-xl border p-6 text-center hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-green-100 flex items-center justify-center">
+                  <f.icon className="w-6 h-6 text-green-700" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">{f.title}</h3>
+                <p className="text-sm text-gray-500">{f.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((f, i) => (
-            <div key={i} className="bg-white rounded-xl border p-6 text-center hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-green-100 flex items-center justify-center">
-                <f.icon className="w-6 h-6 text-green-700" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{f.title}</h3>
-              <p className="text-sm text-gray-500">{f.desc}</p>
-            </div>
+        <h2 className="text-2xl font-bold text-green-900 mb-8 text-center">Services disponibles</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { href: "/inscription", title: "Inscription", desc: "Inscription des ressortissants maliens" },
+            { href: "/conges/demander", title: "Congé académique", desc: "Demande de congé pour les étudiants" },
+            { href: "/billets/demander", title: "Billet de voyage", desc: "Demande de billet ou rapatriement" },
+            { href: "/signalements/soumettre", title: "Signalement", desc: "Signaler un incident ou une urgence" },
+            { href: "/doleances/soumettre", title: "Doléances", desc: "Soumettre une réclamation" },
+            { href: "/arrivee", title: "Déclaration d'arrivée", desc: "Signaler votre arrivée en Russie" },
+          ].map((s, i) => (
+            <Link key={i} href={s.href} className="bg-white rounded-xl border p-5 hover:shadow-md transition-shadow group">
+              <h3 className="font-semibold text-gray-900 group-hover:text-green-700 transition-colors">{s.title}</h3>
+              <p className="text-sm text-gray-500 mt-1">{s.desc}</p>
+            </Link>
           ))}
         </div>
       </section>
 
       <section className="bg-green-900 text-white py-12">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-8">{appT("subtitle")}</h2>
+          <h2 className="text-2xl font-bold mb-8">Ambassade du Mali en Fédération de Russie</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { n: "350+", l: "Boursiers" },
+              { n: "360+", l: "Étudiants" },
               { n: "120+", l: "Contractuels" },
               { n: "80+", l: "Travailleurs" },
               { n: "200+", l: "Résidents" },
@@ -106,9 +105,26 @@ export default function PresentationPage() {
         </div>
       </section>
 
+      <section className="py-12 bg-white">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <h2 className="text-xl font-bold text-green-900 mb-4">Nous contacter</h2>
+          <p className="text-sm text-gray-600 mb-2">
+            11, rue Novokouznetskaïa (Новокузнецкая улица, 11с1), Moscou
+          </p>
+          <p className="text-sm text-gray-600 mb-2">Tél : +7 495 951-06-55 | Fax : +7 495 951-27-84</p>
+          <p className="text-sm text-gray-600">
+            Email : <a href="mailto:amaliru@mail.ru" className="text-green-700 hover:underline">amaliru@mail.ru</a>
+          </p>
+          <div className="mt-6">
+            <Link href="/" className="inline-flex items-center gap-1 text-sm text-green-700 hover:text-green-800">
+              <ArrowLeft className="w-4 h-4" /> Retour à l'accueil
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <footer className="border-t bg-white py-6 text-center text-sm text-gray-500">
-        <p>{appT("name")} — {appT("subtitle")}</p>
-        <p className="mt-1">Федерация России</p>
+        <p>Ambassade de la République du Mali en Fédération de Russie — Portail des Ressortissants Maliens</p>
       </footer>
     </div>
   );
