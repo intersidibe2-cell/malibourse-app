@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,7 @@ import SearchBar from "@/components/shared/SearchBar";
 import EmptyState from "@/components/shared/EmptyState";
 import StatusBadge from "@/components/shared/StatusBadge";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 type FieldType = "text" | "number" | "date" | "email" | "select" | "textarea" | "tel";
 
@@ -60,6 +61,8 @@ export default function CrudPage({
   const [formValues, setFormValues] = useState<Record<string, string>>(defaultFormValues);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -111,22 +114,34 @@ export default function CrudPage({
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Erreur");
       setDialogOpen(false);
+      toast.success(editingId ? "Modifié avec succès" : "Ajouté avec succès");
       fetchData();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur");
+      toast.error(err instanceof Error ? err.message : "Erreur lors de l'enregistrement");
     } finally {
       setSaving(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm("Êtes-vous sûr de vouloir supprimer cet élément ?")) return;
+  const handleDelete = async () => {
+    if (!confirmId) return;
     try {
-      await fetch(`${apiEndpoint}/${id}`, { method: "DELETE" });
+      await fetch(`${apiEndpoint}/${confirmId}`, { method: "DELETE" });
+      toast.success("Supprimé avec succès");
+      setConfirmOpen(false);
+      setConfirmId(null);
       fetchData();
     } catch (err) {
-      console.error("Delete error:", err);
+      toast.error("Erreur lors de la suppression");
+      setConfirmOpen(false);
+      setConfirmId(null);
     }
+  };
+
+  const askDelete = (id: string) => {
+    setConfirmId(id);
+    setConfirmOpen(true);
   };
 
   const statusOptions = (() => {
@@ -138,11 +153,6 @@ export default function CrudPage({
     });
     return Array.from(set);
   })();
-
-  const selectedCount = (editingId
-    ? 1
-    : data.filter((d) => statusField ? (d[statusField] === formValues[statusField]) : true).length
-  ) || 0;
 
   return (
     <div>
@@ -261,7 +271,7 @@ export default function CrudPage({
                           <button onClick={() => openEdit(row)} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-blue-600">
                             <Pencil className="w-4 h-4" />
                           </button>
-                          <button onClick={() => handleDelete(row[idField] as string)} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-red-600">
+                          <button onClick={() => askDelete(row[idField] as string)} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-red-600">
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
@@ -274,6 +284,25 @@ export default function CrudPage({
           </div>
         </div>
       )}
+
+      {/* Confirmation dialog */}
+      <Dialog open={confirmOpen} onOpenChange={(open) => { if (!open) { setConfirmOpen(false); setConfirmId(null); } }}>
+        <DialogContent className="max-w-sm">
+          <div className="text-center py-4">
+            <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+              <AlertTriangle className="w-6 h-6 text-red-600" />
+            </div>
+            <DialogTitle className="text-lg font-semibold text-gray-900 mb-2">Confirmer la suppression</DialogTitle>
+            <p className="text-sm text-gray-500 mb-6">Cette action est irréversible.</p>
+            <div className="flex justify-center gap-3">
+              <DialogClose asChild>
+                <Button variant="outline">Annuler</Button>
+              </DialogClose>
+              <Button onClick={handleDelete} className="bg-red-600 hover:bg-red-700 text-white">Supprimer</Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

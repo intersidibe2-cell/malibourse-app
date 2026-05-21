@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 import BackButton from "@/components/shared/BackButton";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Portail Ambassade du Mali en Fédération de Russie",
@@ -53,6 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="min-h-full font-sans" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" }}>
         <BackButton />
+        <Toaster position="top-right" richColors closeButton />
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

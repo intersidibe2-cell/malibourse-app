@@ -452,6 +452,7 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
               <ul className="space-y-2 text-sm text-green-300">
                 <li><a href="/presentation" className="hover:text-white transition-colors">À propos</a></li>
                 <li><a href="/actualites" className="hover:text-white transition-colors">Actualités</a></li>
+                <li><a href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</a></li>
                 <li><a href="/services" className="hover:text-white transition-colors">Services à venir</a></li>
                 <li><a href="/login" className="hover:text-white transition-colors">Espace ambassade</a></li>
               </ul>
