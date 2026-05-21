@@ -9,7 +9,8 @@ import {
   ArrowRight, Globe, GraduationCap, BookOpen, Shield, 
   Briefcase, MapPin, House, FileQuestion, Lock, 
   ChevronRight, Star, Phone, Mail, MapPinned, 
-  Users, Building2, Award, HeartHandshake, Construction
+  Users, Building2, Award, HeartHandshake, Construction,
+  AlertTriangle, QrCode, MessageSquare, ExternalLink
 } from "lucide-react";
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -61,7 +62,8 @@ export default function HomePage() {
   const urgentServices = [
     { icon: FileQuestion, title: "Sans Papiers", desc: "Aide confidentielle", href: "/inscription", color: "from-red-500 to-red-600", urgent: true },
     { icon: Lock, title: "Assistance Détention", desc: "Suivi consulaire urgent", href: "/inscription", color: "from-gray-700 to-gray-900", urgent: true },
-    { icon: Construction, title: "Services à venir", desc: "Légalisation, RDV, passeport, certificats...", href: "/services", color: "from-amber-500 to-amber-600", urgent: false },
+    { icon: AlertTriangle, title: "Signalement d'un problème", desc: "Incident, urgence ou situation critique", href: "/signalements/soumettre", color: "from-orange-500 to-red-600", urgent: true },
+    { icon: Construction, title: "Autres services à venir", desc: "Légalisation, RDV, passeport, certificats...", href: "/services", color: "from-amber-500 to-amber-600", urgent: false },
   ];
 
   const toggleLocale = () => {
@@ -145,6 +147,11 @@ et ressortissants maliens sur l'ensemble du territoire.
                 <MapPinned className="w-3.5 h-3.5 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Signalement arrivée</span>
                 <span className="sm:hidden">Arrivée</span>
+              </Button>
+              <Button onClick={() => router.push("/signalements/soumettre")} className="bg-red-500 hover:bg-red-600 text-white font-bold px-3 sm:px-6 py-3 sm:py-6 text-sm sm:text-lg shadow-2xl hover:shadow-red-500/30 transition-all hover:scale-105 animate-pulse">
+                <AlertTriangle className="w-3.5 h-3.5 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Signaler un problème</span>
+                <span className="sm:hidden">Urgence</span>
               </Button>
             </div>
           </div>
@@ -232,33 +239,65 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
         </div>
       </section>
 
+      {/* Urgence Banner */}
+      <section className="py-12 bg-gradient-to-r from-red-600 via-red-500 to-orange-500 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0L40 20L20 40L0 20Z' fill='%23ffffff'/%3E%3C/svg%3E\")" }} />
+        <div className="relative z-10 max-w-5xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+                <AlertTriangle className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-lg">Besoin d'aide urgente ?</h3>
+                <p className="text-red-100 text-sm">Signalez un incident ou contactez l'ambassade</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button onClick={() => router.push("/signalements/soumettre")} className="bg-white text-red-600 hover:bg-red-50 font-bold px-6 py-5">
+                <AlertTriangle className="w-5 h-5 mr-2" />
+                Signaler un problème
+              </Button>
+              <Button variant="outline" onClick={() => router.push("/doleances/soumettre")} className="border-2 border-white/40 text-white hover:bg-white/10 px-6 py-5">
+                <MessageSquare className="w-5 h-5 mr-2" />
+                Écrire à l'ambassade
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 relative overflow-hidden">
         <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #0d3b1e 0%, #14532d 50%, #0d3b1e 100%)" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-yellow-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-green-500/5 rounded-full blur-3xl" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Besoin d'aide ?</h2>
-          <p className="text-green-200 mb-10 max-w-xl mx-auto">
-L'Ambassade du Mali en Fédération de Russie est à votre disposition. 
-Inscrivez-vous pour suivre votre dossier étudiant.
+          <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/10 flex items-center justify-center">
+            <Users className="w-8 h-8 text-yellow-400" />
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Rejoignez la communauté</h2>
+          <p className="text-green-200 mb-10 max-w-xl mx-auto text-lg">
+            Que vous soyez étudiant, travailleur ou résident, inscrivez-vous pour accéder à l'ensemble des services consulaires.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button size="lg" onClick={() => router.push("/inscription")} className="bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold px-10 py-6 text-lg shadow-xl hover:shadow-yellow-500/30 transition-all hover:scale-105">
               S'inscrire maintenant
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => router.push("/doleances/soumettre")} className="border-2 border-white/20 text-white hover:bg-white/10 px-10 py-6 text-lg transition-all">
-              Nous contacter
+            <Button size="lg" variant="outline" onClick={() => router.push("/accueil")} className="border-2 border-white/20 text-white hover:bg-white/10 px-10 py-6 text-lg transition-all">
+              Découvrir les services
             </Button>
           </div>
         </div>
       </section>
 
       {/* Contact Info */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white relative">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
               <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
                 <Building2 className="w-5 h-5 text-green-700" />
               </div>
@@ -267,22 +306,31 @@ Inscrivez-vous pour suivre votre dossier étudiant.
                 <p className="text-xs text-gray-500 mt-1">Moscou, Fédération de Russie</p>
               </div>
             </div>
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50">
+            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
               <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
                 <Phone className="w-5 h-5 text-green-700" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 text-sm">Contact téléphonique</h4>
-                <p className="text-xs text-gray-500 mt-1">+7 XXX XXX XX XX</p>
+                <h4 className="font-semibold text-gray-900 text-sm">Téléphone (urgence)</h4>
+                <p className="text-xs text-gray-500 mt-1">+7 (495) 737-84-20</p>
               </div>
             </div>
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50">
+            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
               <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
                 <Mail className="w-5 h-5 text-green-700" />
               </div>
               <div>
                 <h4 className="font-semibold text-gray-900 text-sm">Contact email</h4>
                 <p className="text-xs text-gray-500 mt-1">contact@etudiantsmali.ru</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-6 rounded-xl bg-red-50 hover:bg-red-100 transition-colors border border-red-100">
+              <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-red-800 text-sm">Signaler un problème</h4>
+                <a href="/signalements/soumettre" className="text-xs text-red-600 underline mt-1 block">Formulaire de signalement →</a>
               </div>
             </div>
           </div>
@@ -315,6 +363,7 @@ Inscrivez-vous pour suivre votre dossier étudiant.
                 <li><a href="/accueil" className="hover:text-white transition-colors">Portail services</a></li>
                 <li><a href="/arrivee" className="hover:text-white transition-colors">Signaler mon arrivée</a></li>
                 <li><a href="/doleances/soumettre" className="hover:text-white transition-colors">Doléances</a></li>
+                <li><a href="/signalements/soumettre" className="hover:text-white transition-colors flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Signalement urgence</a></li>
               </ul>
             </div>
             <div>
