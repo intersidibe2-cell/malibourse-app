@@ -22,6 +22,9 @@ run("cd /root/malibourse-app && git pull origin master 2>&1", 30)
 print("\n=== Running SQL migration ===", flush=True)
 run("cd /root/malibourse-app && PGPASSWORD=Rg6kHq9zVp2x psql -U malibourse_admin -h localhost -d malibourse -f sql/migration_annonces.sql 2>&1", 15)
 
+print("\n=== Installing dependencies ===", flush=True)
+run("cd /root/malibourse-app && npm install 2>&1", 60)
+
 print("\n=== Building ===", flush=True)
 run("cd /root/malibourse-app && npm run build 2>&1 | tail -20", 300)
 
