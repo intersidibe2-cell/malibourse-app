@@ -27,20 +27,10 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/billets") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
-    pathname.startsWith("/upload");
-
-  const isAmbassadeRoute = pathname.startsWith("/ambassade");
-
-  if (!token && isAmbassadeRoute) {
-    return NextResponse.redirect(new URL("/ambassade/login", request.url));
-  }
-
-  if (token && pathname === "/ambassade/login") {
-    return NextResponse.redirect(new URL("/ambassade/dashboard", request.url));
-  }
+    pathname.startsWith("/uploads");
 
   if (token && pathname === "/login") {
-    return NextResponse.redirect(new URL("/ambassade/dashboard", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
