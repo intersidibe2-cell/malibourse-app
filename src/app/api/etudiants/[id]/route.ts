@@ -8,7 +8,7 @@ const handler = createEntityHandler({
     "telephone", "email", "ville", "adresse_residence", "universite",
     "filiere", "niveau", "annee_etude", "date_arrivee", "date_fin_cycle",
     "date_depart", "montant_mensuel", "devise", "statut_bourse",
-    "type_bourse", "observations",
+    "type_bourse", "observations", "source", "propose_par", "statut_ministere",
   ],
 });
 

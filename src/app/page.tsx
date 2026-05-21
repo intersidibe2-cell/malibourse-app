@@ -466,6 +466,7 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
                 <li><a href="/bourses" className="hover:text-white transition-colors">Bourses d'études</a></li>
                 <li><a href="/espace-etudiant" className="hover:text-white transition-colors">Espace étudiant</a></li>
                 <li><a href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</a></li>
+                <li><a href="/ministere" className="hover:text-white transition-colors">Ministère Éducation</a></li>
                 <li><a href="/login" className="hover:text-white transition-colors">Espace ambassade</a></li>
               </ul>
             </div>

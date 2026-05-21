@@ -1,4 +1,4 @@
-export type Role = "ambassadeur" | "culturel" | "comptable" | "consulaire" | "defense" | "secretariat"
+export type Role = "ambassadeur" | "culturel" | "comptable" | "consulaire" | "defense" | "secretariat" | "ministere"
 
 export const rolePermissions: Record<Role, { modules: string[]; menu: { href: string; label: string; icon: string }[] }> = {
   ambassadeur: {
@@ -93,6 +93,17 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       { href: "/dashboard/faq", label: "FAQ", icon: "HelpCircle" },
       { href: "/dashboard/telechargements", label: "Téléchargements", icon: "Download" },
       { href: "/dashboard/verification", label: "À Vérifier", icon: "ClipboardCheck" },
+    ],
+  },
+  ministere: {
+    modules: ["dashboard", "etudiants", "paiements", "conges", "declarations-arrivee", "ministere"],
+    menu: [
+      { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard" },
+      { href: "/dashboard/ministere", label: "Tableau de Bord", icon: "GraduationCap" },
+      { href: "/dashboard/etudiants", label: "Étudiants Boursiers", icon: "GraduationCap" },
+      { href: "/dashboard/paiements", label: "Bourses & Paiements", icon: "CreditCard" },
+      { href: "/dashboard/conges", label: "Congés Académiques", icon: "Calendar" },
+      { href: "/dashboard/declarations-arrivee", label: "Arrivées", icon: "Plane" },
     ],
   },
 }

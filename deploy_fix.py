@@ -20,7 +20,7 @@ print("=== Pulling latest code ===", flush=True)
 run("cd /root/malibourse-app && git pull origin master 2>&1", 30)
 
 print("\n=== Running SQL migration ===", flush=True)
-run("cd /root/malibourse-app && PGPASSWORD=Rg6kHq9zVp2x psql -U malibourse_admin -h localhost -d malibourse -f sql/migration_annonces.sql 2>&1", 15)
+run("cd /root/malibourse-app && for f in sql/migration_*.sql; do echo \"  Running $f\"; PGPASSWORD=Rg6kHq9zVp2x psql -U malibourse_admin -h localhost -d malibourse -f \"$f\" 2>&1 | tail -3; done", 30)
 
 print("\n=== Installing dependencies ===", flush=True)
 run("cd /root/malibourse-app && npm install 2>&1", 60)
