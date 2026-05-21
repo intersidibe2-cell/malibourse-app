@@ -155,14 +155,14 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4 sm:mb-6 animate-fade-in-up text-center px-2">
-              Plateforme de Gestion des<br className="hidden sm:block" />
+              Portail des<br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">Ressortissants Maliens</span>
               <br className="hidden sm:block" />en Russie
             </h1>
 
             <p className="text-sm sm:text-lg md:text-xl text-green-100/90 mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up text-center px-2">
-L'Ambassade du Mali en Fédération de Russie assure la gestion et le suivi des étudiants
-et ressortissants maliens sur l'ensemble du territoire.
+L'Ambassade du Mali en Fédération de Russie assure le suivi et la protection
+de l'ensemble des étudiants et ressortissants maliens sur le territoire russe.
             </p>
 
             <div className="flex flex-wrap justify-center gap-2 sm:gap-4 animate-fade-in-up px-2">
