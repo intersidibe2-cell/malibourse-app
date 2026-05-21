@@ -322,6 +322,7 @@ export default function HomePage() {
               <h4 className="font-semibold text-yellow-400 mb-4 text-sm uppercase tracking-wider">Liens</h4>
               <ul className="space-y-2 text-sm text-green-300">
                 <li><a href="/presentation" className="hover:text-white transition-colors">À propos</a></li>
+                <li><a href="/services" className="hover:text-white transition-colors">Services à venir</a></li>
                 <li><a href="/login" className="hover:text-white transition-colors">Espace ambassade</a></li>
               </ul>
             </div>
