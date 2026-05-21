@@ -1,68 +1,81 @@
 import paramiko
-import sys
-import io
-import time
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh.connect('130.49.148.253', 22, 'root', 'dvfHuqlxyO5mh6o2', timeout=30)
+ssh.connect("130.49.148.253", 22, "root", "dvfHuqlxyO5mh6o2", timeout=10)
 
-def run(cmd, timeout=60):
-    print(f"> {cmd}", flush=True)
-    stdin, stdout, stderr = ssh.exec_command(cmd, timeout=timeout)
-    exit_code = stdout.channel.recv_exit_status()
-    out = stdout.read().decode('utf-8', errors='replace').strip()
-    err = stderr.read().decode('utf-8', errors='replace').strip()
-    if out:
-        for line in out.split('\n')[-5:]:
-            print(f"  {line}", flush=True)
-    if exit_code != 0 and err:
-        for line in err.split('\n')[-3:]:
-            print(f"  ERR: {line}", flush=True)
-    return out, exit_code
+# Read current broken config
+i, o, e = ssh.exec_command("cat /etc/nginx/sites-enabled/etudiantsmali.ru", timeout=5)
+broken = o.read().decode()
+print("BROKEN CONFIG:")
+print(broken)
 
-# Upload fix script via SFTP
-sftp = ssh.open_sftp()
-nginx_config = "server {\n"
-nginx_config += "    listen 80;\n"
-nginx_config += "    server_name etudiantsmali.ru www.etudiantsmali.ru;\n"
-nginx_config += "\n"
-nginx_config += "    location / {\n"
-nginx_config += "        proxy_pass http://localhost:3000;\n"
-nginx_config += "        proxy_http_version 1.1;\n"
-nginx_config += "        proxy_set_header Upgrade $http_upgrade;\n"
-nginx_config += "        proxy_set_header Connection 'upgrade';\n"
-nginx_config += "        proxy_set_header Host $host;\n"
-nginx_config += "        proxy_cache_bypass $http_upgrade;\n"
-nginx_config += "        proxy_set_header X-Real-IP $remote_addr;\n"
-nginx_config += "        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n"
-nginx_config += "        proxy_set_header X-Forwarded-Proto $scheme;\n"
-nginx_config += "    }\n"
-nginx_config += "}\n"
+# Write correct config
+correct = '''server {
+    listen 80;
+    server_name etudiantsmali.ru www.etudiantsmali.ru;
+    return 301 https://$host$request_uri;
+}
 
-with sftp.open("/etc/nginx/sites-available/etudiantsmali.ru", "w") as f:
-    f.write(nginx_config)
-print("Nginx config uploaded via SFTP", flush=True)
-sftp.close()
+server {
+    listen 443 ssl;
+    server_name etudiantsmali.ru www.etudiantsmali.ru;
 
-run("ln -sf /etc/nginx/sites-available/etudiantsmali.ru /etc/nginx/sites-enabled/")
-run("rm -f /etc/nginx/sites-enabled/default")
-out, code = run("nginx -t")
-print(f"nginx test: {out}")
+    ssl_certificate /etc/letsencrypt/live/etudiantsmali.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/etudiantsmali.ru/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
-run("systemctl reload nginx")
+    gzip on;
+    gzip_comp_level 5;
+    gzip_types text/plain text/css application/json application/javascript image/svg+xml font/woff2;
 
-time.sleep(3)
+    location /_next/static/ {
+        proxy_pass http://localhost:3000;
+        expires 365d;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }
 
-out, code = run("curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/")
-print(f"Port 3000: {out}")
+    location /uploads/ {
+        proxy_pass http://localhost:3000;
+        expires 30d;
+        add_header Cache-Control "public";
+        access_log off;
+    }
 
-out, code = run("curl -s -o /dev/null -w '%{http_code}' http://localhost:80/ -H 'Host: etudiantsmali.ru'")
-print(f"Port 80 (nginx): {out}")
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+'''
 
-run("pm2 logs malibourse --lines 3 --nostream")
+# Upload the fixed config
+with ssh.open_sftp() as sftp:
+    with sftp.open("/etc/nginx/sites-enabled/etudiantsmali.ru", "w") as f:
+        f.write(correct)
+
+print("\nConfig written. Testing...")
+i, o, e = ssh.exec_command("nginx -t", timeout=5)
+o.channel.recv_exit_status()
+out = o.read().decode().strip()
+err = e.read().decode().strip()
+if out: print(out)
+if err: print(err)
+
+if "test failed" not in out.lower() and "test failed" not in err.lower():
+    print("Config OK. Reloading nginx...")
+    i, o, e = ssh.exec_command("systemctl reload nginx", timeout=5)
+    o.channel.recv_exit_status()
+    print("Done!")
+else:
+    print("CONFIG TEST FAILED!")
 
 ssh.close()
-print("\nDone!")

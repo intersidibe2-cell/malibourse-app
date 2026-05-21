@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { 
@@ -345,12 +346,14 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
           <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-10 text-center">Nous trouver</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             {/* Photo de l'ambassade */}
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/2/23/Moscow%2C_Novokuznetskaya_11%2C_Embassy_of_Mali.jpg"
+            <div className="rounded-2xl overflow-hidden shadow-xl relative aspect-[4/3]">
+              <Image
+                src="/images/ambassade.jpg"
                 alt="Ambassade du Mali à Moscou — 11, rue Novokouznetskaïa"
-                className="w-full h-auto object-cover"
+                fill
+                className="object-cover"
                 loading="lazy"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
             {/* Coordonnées */}

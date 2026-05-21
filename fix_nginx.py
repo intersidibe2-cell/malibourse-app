@@ -1,73 +1,71 @@
-import paramiko
-import sys
-import io
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+import paramiko, sys
+sys.stdout = open(1, "w", encoding="utf-8", errors="replace")
 
 ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh.connect('130.49.148.253', 22, 'root', 'dvfHuqlxyO5mh6o2', timeout=30)
+ssh.connect("130.49.148.253", 22, "root", "dvfHuqlxyO5mh6o2", timeout=10)
 
-def run(cmd, timeout=60):
-    print(f"> {cmd}", flush=True)
-    stdin, stdout, stderr = ssh.exec_command(cmd, timeout=timeout)
-    exit_code = stdout.channel.recv_exit_status()
-    out = stdout.read().decode('utf-8', errors='replace').strip()
-    err = stderr.read().decode('utf-8', errors='replace').strip()
+def run(cmd, t=10):
+    i, o, e = ssh.exec_command(cmd, timeout=t)
+    o.channel.recv_exit_status()
+    out = o.read().decode("utf-8", errors="replace").strip()
+    err = e.read().decode("utf-8", errors="replace").strip()
     if out:
-        for line in out.split('\n')[-10:]:
-            print(f"  {line}", flush=True)
-    if exit_code != 0 and err:
-        for line in err.split('\n')[-5:]:
-            print(f"  ERR: {line}", flush=True)
-    return out, exit_code
+        for line in out.split("\n")[-10:]:
+            if line.strip():
+                print("  " + line.strip())
+    if err:
+        for line in err.split("\n")[-5:]:
+            if line.strip():
+                print("  ERR: " + line.strip())
+    return out
 
-# Upload fix script via SFTP
-sftp = ssh.open_sftp()
-with sftp.open("/tmp/fix_nginx.py", "w") as f:
-    f.write("""
-import os
+print("=== Checking Brotli ===")
+out = run("nginx -V 2>&1")
+has_brotli = "brotli" in out.lower()
+print("  Brotli available:", has_brotli)
 
-config = """server {
-    listen 80;
-    server_name etudiantsmali.ru www.etudiantsmali.ru;
+print("\n=== Reading current config ===")
+run("cat /etc/nginx/sites-enabled/etudiantsmali.ru")
 
-    location / {
+if has_brotli:
+    print("\n=== Adding Brotli + Cache to config ===")
+    # Add brotli to http block
+    run("""grep -q 'brotli on' /etc/nginx/nginx.conf || sed -i '/^http {/a\\    brotli on;\\n    brotli_comp_level 6;\\n    brotli_types text/plain text/css application/json application/javascript image/svg+xml font/woff2;' /etc/nginx/nginx.conf""", 5)
+
+# Add cache locations to server block - insert before the last }
+config = run("cat /etc/nginx/sites-enabled/etudiantsmali.ru")
+if "location /_next/static/" not in config:
+    # Use sed to add cache locations before the final } in the server block
+    cache_block = """
+    location /_next/static/ {
         proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        expires 365d;
+        add_header Cache-Control "public, immutable";
+        access_log off;
     }
-}"""
 
-with open('/etc/nginx/sites-available/etudiantsmali.ru', 'w') as f:
-    f.write(config)
-print('Nginx config rewritten OK')
-""")
-sftp.close()
-print("Script uploaded")
+    location /uploads/ {
+        proxy_pass http://localhost:3000;
+        expires 30d;
+        add_header Cache-Control "public";
+        access_log off;
+    }"""
 
-run("python3 /tmp/fix_nginx.py")
-out, code = run("nginx -t")
-print(f"nginx test: {out}")
+    # Escape for sed
+    cache_escaped = cache_block.replace("\n", "\\n").replace("/", "\\/")
+    cmd = f'cat /etc/nginx/sites-enabled/etudiantsmali.ru | head -n -1 > /tmp/nginx_new.conf && echo "{cache_block}" >> /tmp/nginx_new.conf && echo "}}" >> /tmp/nginx_new.conf && cp /tmp/nginx_new.conf /etc/nginx/sites-enabled/etudiantsmali.ru'
+    run(cmd, 5)
+    print("  Cache locations added")
 
-run("systemctl reload nginx")
+print("\n=== Testing nginx config ===")
+run("nginx -t", 5)
 
-import time
-time.sleep(3)
+print("\n=== Reloading nginx ===")
+run("systemctl reload nginx", 5)
 
-out, code = run("curl -s -o /dev/null -w '%{http_code}' http://localhost:80/ -H 'Host: etudiantsmali.ru'")
-print(f"Nginx proxy status: {out}")
-
-out, code = run("curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/")
-print(f"App port 3000 status: {out}")
-
-out, code = run("pm2 logs malibourse --lines 5 --nostream")
-print(f"PM2 logs: {out}")
+print("\n=== Final config ===")
+run("cat /etc/nginx/sites-enabled/etudiantsmali.ru")
 
 ssh.close()
+print("\nDone!")
