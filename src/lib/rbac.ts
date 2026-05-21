@@ -7,7 +7,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       "paiements", "conges", "doleances", "travailleurs", "visiteurs",
       "residents", "declarations-arrivee", "suivi-boursiers", "billets-voyage",
       "verification", "sans-papiers", "detentions", "alertes", "import",
-      "ressortissants",
+      "ressortissants", "qr-codes",
     ],
     menu: [
       { href: "/dashboard", label: "Tableau de Bord", icon: "LayoutDashboard" },
@@ -28,6 +28,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       { href: "/dashboard/alertes", label: "Alertes", icon: "Bell" },
       { href: "/dashboard/import", label: "Import/Export", icon: "Upload" },
       { href: "/dashboard/suivi-boursiers", label: "Suivi Retards", icon: "TriangleAlert" },
+      { href: "/dashboard/qr-codes", label: "QR Codes", icon: "QrCode" },
     ],
   },
   culturel: {
