@@ -4,12 +4,12 @@ import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Portail Ambassade Mali à Moscou",
-  description: "Portail numérique de l'Ambassade du Mali à Moscou",
+  title: "Portail Ambassade du Mali en Fédération de Russie",
+  description: "Portail numérique de gestion des étudiants et ressortissants maliens en Fédération de Russie",
   metadataBase: new URL("https://etudiantsmali.ru"),
   openGraph: {
-    title: "Portail Ambassade Mali à Moscou",
-    description: "Plateforme de gestion pour les ressortissants maliens en Fédération de Russie",
+    title: "Portail Ambassade du Mali en Fédération de Russie",
+    description: "Plateforme de gestion des étudiants et ressortissants maliens en Fédération de Russie",
     url: "https://etudiantsmali.ru",
     locale: "fr_FR",
     type: "website",

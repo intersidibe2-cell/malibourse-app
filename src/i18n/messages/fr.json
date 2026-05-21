@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "Portail Ambassade Mali à Moscou",
-    "subtitle": "Ambassade du Mali à Moscou",
+    "name": "Portail Ambassade du Mali en Fédération de Russie",
+    "subtitle": "Ambassade du Mali en Fédération de Russie",
     "shortName": "GestBourse"
   },
   "nav": {
@@ -196,13 +196,13 @@
   "public": {
     "declarationArrivee": "Déclaration d'Arrivée",
     "declarationSubtitle": "Formulaire de déclaration d'arrivée pour les ressortissants maliens en Fédération de Russie",
-    "declarationSuccess": "Votre déclaration a été transmise avec succès à l'Ambassade du Mali à Moscou.",
+    "declarationSuccess": "Votre déclaration a été transmise avec succès à l'Ambassade du Mali en Fédération de Russie.",
     "soumettreDoleance": "Soumettre une Doléance",
-    "doleanceSubtitle": "Soumettez votre demande, réclamation ou suggestion à l'Ambassade du Mali à Moscou",
+    "doleanceSubtitle": "Soumettez votre demande, réclamation ou suggestion à l'Ambassade du Mali en Fédération de Russie",
     "doleanceSuccess": "Votre doléance a été soumise avec succès. L'ambassade vous répondra dans les plus brefs délais.",
     "enregistrementContractuel": "Enregistrement Étudiant Contractuel",
     "contractuelSubtitle": "Formulaire d'enregistrement pour les étudiants maliens non boursiers en Fédération de Russie",
-    "contractuelSuccess": "Votre dossier a été transmis avec succès à l'Ambassade du Mali à Moscou.",
+    "contractuelSuccess": "Votre dossier a été transmis avec succès à l'Ambassade du Mali en Fédération de Russie.",
     "presentationTitle": "GestBourse Mali",
     "presentationSubtitle": "Plateforme de gestion centralisée pour les boursiers maliens en Fédération de Russie",
     "feature1Title": "Accessible en ligne",

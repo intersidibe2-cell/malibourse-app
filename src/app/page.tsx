@@ -129,8 +129,8 @@ export default function HomePage() {
             </h1>
 
             <p className="text-sm sm:text-lg md:text-xl text-green-100/90 mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up text-center px-2">
-              L'Ambassade du Mali à Moscou vous accompagne au quotidien dans toutes vos démarches 
-              administratives et consulaires sur l'ensemble du territoire de la Fédération de Russie.
+L'Ambassade du Mali en Fédération de Russie assure la gestion et le suivi des étudiants
+et ressortissants maliens sur l'ensemble du territoire.
             </p>
 
             <div className="flex flex-wrap justify-center gap-2 sm:gap-4 animate-fade-in-up px-2">
@@ -193,10 +193,10 @@ export default function HomePage() {
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">Mot de l'Ambassadeur</h2>
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/20">
             <p className="text-lg md:text-xl text-green-50 italic leading-relaxed mb-6">
-              "L'Ambassade du Mali à Moscou place le bien-être et la protection de ses ressortissants 
-              au cœur de son action. Cette plateforme numérique incarne notre engagement à offrir 
-              des services modernes, accessibles et efficaces à chaque Malien vivant en Fédération de Russie. 
-              Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre communauté."
+"L'Ambassade du Mali en Fédération de Russie place le bien-être et la protection de ses
+ressortissants au cœur de son action. Cette plateforme numérique incarne notre engagement
+à offrir des services modernes, accessibles et efficaces à chaque Malien vivant en Russie.
+Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre communauté."
             </p>
             <div className="w-12 h-0.5 bg-yellow-400 mx-auto mb-4" />
             <p className="text-yellow-300 font-semibold">S.E. l'Ambassadeur du Mali à Moscou</p>
@@ -211,7 +211,7 @@ export default function HomePage() {
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4 text-center">Nos Services</h2>
             <p className="text-gray-500 max-w-2xl mx-auto text-center">
-              L'Ambassade du Mali à Moscou propose des services adaptés à chaque situation des ressortissants maliens en Fédération de Russie.
+              L'Ambassade du Mali en Fédération de Russie propose des services adaptés à chaque situation des ressortissants maliens.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
@@ -239,8 +239,8 @@ export default function HomePage() {
         <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Besoin d'aide ?</h2>
           <p className="text-green-200 mb-10 max-w-xl mx-auto">
-            L'Ambassade du Mali à Moscou est à votre disposition. 
-            Inscrivez-vous pour faciliter vos démarches administratives.
+L'Ambassade du Mali en Fédération de Russie est à votre disposition. 
+Inscrivez-vous pour suivre votre dossier étudiant.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button size="lg" onClick={() => router.push("/inscription")} className="bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold px-10 py-6 text-lg shadow-xl hover:shadow-yellow-500/30 transition-all hover:scale-105">
@@ -299,13 +299,13 @@ export default function HomePage() {
                   M
                 </div>
                 <div>
-                  <div className="font-bold">Ambassade du Mali à Moscou</div>
+                  <div className="font-bold">Ambassade du Mali en Fédération de Russie</div>
                   <div className="text-sm text-green-400">République du Mali</div>
                 </div>
               </div>
               <p className="text-green-300 text-sm leading-relaxed max-w-md">
                 Plateforme numérique de gestion des ressortissants maliens en Fédération de Russie.
-                Service de l'Ambassade de la République du Mali à Moscou.
+                Service de l'Ambassade de la République du Mali en Fédération de Russie.
               </p>
             </div>
             <div>
@@ -332,7 +332,7 @@ export default function HomePage() {
             <div className="flex-1 bg-red-600" />
           </div>
           <p className="text-center text-sm text-green-500">
-            © 2026 Ambassade de la République du Mali à Moscou — Tous droits réservés
+            © 2026 Ambassade de la République du Mali en Fédération de Russie — Tous droits réservés
           </p>
         </div>
       </footer>

@@ -48,7 +48,7 @@ export default function SignalementPage() {
           </div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">Signalement envoyé</h2>
           <p className="text-gray-600 mb-6">
-            Votre signalement a été transmis à l'Ambassade du Mali à Moscou. L'équipe consulaire vous contactera dans les plus brefs délais si nécessaire.
+            Votre signalement a été transmis à l'Ambassade du Mali en Fédération de Russie. L'équipe consulaire vous contactera dans les plus brefs délais si nécessaire.
           </p>
           <div className="flex flex-col gap-2">
             <Link href="/" className="text-green-700 hover:text-green-800 underline text-sm">Retour à l'accueil</Link>

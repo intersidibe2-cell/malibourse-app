@@ -24,7 +24,7 @@ export default function AccueilPage() {
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-400 flex items-center justify-center text-white font-bold text-2xl">
           M
         </div>
-        <h1 className="text-2xl md:text-3xl font-bold text-green-900 mb-2">Ambassade du Mali à Moscou</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-green-900 mb-2">Ambassade du Mali en Fédération de Russie</h1>
         <p className="text-gray-500 mb-8">Services aux ressortissants maliens en Fédération de Russie</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {services.map((s, i) => {

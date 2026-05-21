@@ -154,7 +154,7 @@ export default function LoginPage() {
               <ArrowLeft className="w-3 h-3" />
               Retour au site public
             </Link>
-            <p className="text-xs text-gray-400">© 2026 — Ambassade du Mali à Moscou</p>
+            <p className="text-xs text-gray-400">© 2026 — Ambassade du Mali en Fédération de Russie</p>
           </div>
         </div>
       </div>

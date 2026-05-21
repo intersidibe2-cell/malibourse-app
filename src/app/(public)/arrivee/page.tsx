@@ -43,7 +43,7 @@ export default function ArriveePage() {
         <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md text-center">
           <CheckCircle className="w-16 h-16 text-blue-600 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-blue-900 mb-2">Arrivée signalée ! ✅</h2>
-          <p className="text-gray-600 mb-6">L'Ambassade du Mali à Moscou a bien reçu votre signalement. Bienvenue en Russie !</p>
+          <p className="text-gray-600 mb-6">L'Ambassade du Mali en Fédération de Russie a bien reçu votre signalement. Bienvenue en Russie !</p>
           <Link href="/" className="text-blue-700 hover:text-blue-800 underline text-sm">Retour à l'accueil</Link>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function ArriveePage() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-blue-900">Signalement d'arrivée</h1>
-              <p className="text-xs text-gray-500">Ambassade du Mali à Moscou</p>
+              <p className="text-xs text-gray-500">Ambassade du Mali en Fédération de Russie</p>
             </div>
           </div>
           <p className="text-sm text-gray-600 mb-6">Vous arrivez en Russie ? Signalez votre arrivée à l'Ambassade pour faciliter votre suivi consulaire.</p>

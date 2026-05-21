@@ -59,7 +59,7 @@ export default function AudiencePage() {
             <div className="flex-1 bg-green-600" /><div className="flex-1 bg-yellow-400" /><div className="flex-1 bg-red-600" />
           </div>
           <h1 className="text-2xl font-bold text-green-900 mb-2">Demande d'audience</h1>
-          <p className="text-sm text-gray-500 mb-6">Rencontrez un agent de l'Ambassade du Mali à Moscou</p>
+          <p className="text-sm text-gray-500 mb-6">Rencontrez un agent de l'Ambassade du Mali en Fédération de Russie</p>
           {error && <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">{error}</div>}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-3">

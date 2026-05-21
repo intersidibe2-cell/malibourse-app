@@ -58,7 +58,7 @@ export default function InscriptionPage() {
           <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-green-900 mb-2">Inscription envoyée !</h2>
           <p className="text-gray-600 mb-6">
-            Votre dossier a été transmis à l'Ambassade du Mali à Moscou. 
+            Votre dossier a été transmis à l'Ambassade du Mali en Fédération de Russie. 
             Vous recevrez une confirmation par email après vérification.
           </p>
           <Link href="/" className="text-green-700 hover:text-green-800 underline text-sm">Retour à l'accueil</Link>

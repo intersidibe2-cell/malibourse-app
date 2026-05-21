@@ -33,7 +33,7 @@ export default function ServicesPage() {
           </div>
           <h1 className="text-2xl font-bold text-green-900 mb-2">Services à venir</h1>
           <p className="text-sm text-gray-500 max-w-lg mx-auto">
-            L'Ambassade du Mali à Moscou travaille sur de nouveaux services numériques pour mieux vous accompagner.
+            L'Ambassade du Mali en Fédération de Russie travaille sur de nouveaux services numériques pour mieux vous accompagner.
           </p>
         </div>
 

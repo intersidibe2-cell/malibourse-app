@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     const total = students.rows.reduce((sum: number, s: any) => sum + parseFloat(s.montant_mensuel || "0"), 0);
 
     let content = `FICHIER DE PAIEMENT - ${mois.toUpperCase()} ${annee}\n`;
-    content += `Ambassade du Mali à Moscou\n`;
+    content += `Ambassade du Mali en Fédération de Russie\n`;
     content += `Total: ${students.rows.length} étudiants | ${total.toLocaleString()} ${students.rows[0]?.devise || "RUB"}\n\n`;
     content += "N°\tNom\tPrénom\tPasseport\tUniversité\tMontant\tDevise\tBanque\tБИК\tCompte\n";
 
