@@ -7,7 +7,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       "paiements", "conges", "doleances", "travailleurs", "visiteurs",
       "residents", "declarations-arrivee", "suivi-boursiers", "billets-voyage",
       "verification", "sans-papiers", "detentions", "alertes", "import",
-      "ressortissants", "qr-codes", "services",
+      "ressortissants", "qr-codes", "services", "signalements",
     ],
     menu: [
       { href: "/dashboard", label: "Tableau de Bord", icon: "LayoutDashboard" },
@@ -19,6 +19,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       { href: "/dashboard/visiteurs", label: "Visiteurs", icon: "MapPin" },
       { href: "/dashboard/residents", label: "Résidents", icon: "House" },
       { href: "/dashboard/doleances", label: "Doléances", icon: "MessageSquare" },
+      { href: "/dashboard/signalements", label: "Signalements", icon: "AlertTriangle" },
       { href: "/dashboard/conges", label: "Congés", icon: "Calendar" },
       { href: "/dashboard/declarations-arrivee", label: "Déclarations", icon: "Plane" },
       { href: "/dashboard/billets-voyage", label: "Billets", icon: "Ticket" },
@@ -51,7 +52,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
     ],
   },
   consulaire: {
-    modules: ["dashboard", "travailleurs", "visiteurs", "residents", "sans-papiers", "detentions", "alertes", "declarations-arrivee", "doleances"],
+    modules: ["dashboard", "travailleurs", "visiteurs", "residents", "sans-papiers", "detentions", "alertes", "declarations-arrivee", "doleances", "signalements"],
     menu: [
       { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard" },
       { href: "/dashboard/ressortissants", label: "Ressortissants", icon: "Users" },
@@ -61,6 +62,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       { href: "/dashboard/sans-papiers", label: "Sans Papiers", icon: "FileQuestion" },
       { href: "/dashboard/detentions", label: "Détentions", icon: "Lock" },
       { href: "/dashboard/alertes", label: "Alertes", icon: "Bell" },
+      { href: "/dashboard/signalements", label: "Signalements", icon: "AlertTriangle" },
     ],
   },
   defense: {

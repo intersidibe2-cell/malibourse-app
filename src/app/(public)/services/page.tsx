@@ -10,7 +10,7 @@ const futursServices = [
   { icon: ScrollText, title: "Certificats d'état civil", desc: "Demande de certificats de mariage, décès, naissance", color: "from-purple-400 to-purple-500" },
   { icon: CalendarClock, title: "RDV avec le Consul", desc: "Prise de rendez-vous en ligne avec le consul ou les agents", color: "from-rose-400 to-rose-500" },
   { icon: BadgeAlert, title: "Renouvellement de passeport", desc: "Demande de renouvellement et suivi de fabrication", color: "from-cyan-400 to-cyan-500" },
-  { icon: AlertTriangle, title: "Signalement d'un problème", desc: "Signaler un incident, une urgence ou une situation critique", color: "from-red-400 to-red-500" },
+  { icon: AlertTriangle, title: "Signalement d'un problème", desc: "Signaler un incident, une urgence ou une situation critique", color: "from-red-400 to-red-500", href: "/signalements/soumettre" },
 ];
 
 export default function ServicesPage() {
@@ -40,8 +40,10 @@ export default function ServicesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {futursServices.map((s, i) => {
             const Icon = s.icon;
+            const isReady = "href" in s;
+            const Wrapper = isReady ? (props: any) => <Link href={s.href!} {...props} /> : (props: any) => <div {...props} />;
             return (
-              <div key={i} className="relative bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group">
+              <Wrapper key={i} className={`relative bg-white rounded-xl border p-5 transition-all group ${isReady ? "border-green-200 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer" : "border-gray-200 hover:shadow-md"}`}>
                 <div className="flex items-start gap-4">
                   <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${s.color} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
                     <Icon className="w-5 h-5 text-white" />
@@ -49,14 +51,20 @@ export default function ServicesPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-sm font-semibold text-gray-900">{s.title}</h3>
-                      <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 shrink-0">
-                        À VENIR
-                      </span>
+                      {isReady ? (
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200 shrink-0">
+                          DISPONIBLE
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 shrink-0">
+                          À VENIR
+                        </span>
+                      )}
                     </div>
                     <p className="text-xs text-gray-500">{s.desc}</p>
                   </div>
                 </div>
-              </div>
+              </Wrapper>
             );
           })}
         </div>
