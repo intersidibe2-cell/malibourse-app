@@ -35,9 +35,10 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
     ],
   },
   culturel: {
-    modules: ["dashboard", "etudiants", "etudiants-contractuels", "etudiants-militaires", "verification"],
+    modules: ["dashboard", "etudiants", "etudiants-contractuels", "etudiants-militaires", "verification", "annonces"],
     menu: [
       { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard" },
+      { href: "/dashboard/annonces", label: "Annonces", icon: "Megaphone" },
       { href: "/dashboard/etudiants", label: "Étudiants Boursiers", icon: "GraduationCap" },
       { href: "/dashboard/etudiants-contractuels", label: "Contractuels", icon: "BookOpen" },
       { href: "/dashboard/etudiants-militaires", label: "Militaires", icon: "Shield" },
@@ -53,9 +54,10 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
     ],
   },
   consulaire: {
-    modules: ["dashboard", "travailleurs", "visiteurs", "residents", "sans-papiers", "detentions", "alertes", "declarations-arrivee", "doleances", "signalements"],
+    modules: ["dashboard", "travailleurs", "visiteurs", "residents", "sans-papiers", "detentions", "alertes", "declarations-arrivee", "doleances", "signalements", "annonces"],
     menu: [
       { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard" },
+      { href: "/dashboard/annonces", label: "Annonces", icon: "Megaphone" },
       { href: "/dashboard/ressortissants", label: "Ressortissants", icon: "Users" },
       { href: "/dashboard/travailleurs", label: "Travailleurs", icon: "Briefcase" },
       { href: "/dashboard/visiteurs", label: "Visiteurs", icon: "MapPin" },
@@ -74,9 +76,10 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
     ],
   },
   secretariat: {
-    modules: ["dashboard", "verification", "etudiants", "travailleurs", "visiteurs", "declarations-arrivee"],
+    modules: ["dashboard", "verification", "etudiants", "travailleurs", "visiteurs", "declarations-arrivee", "annonces"],
     menu: [
       { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard" },
+      { href: "/dashboard/annonces", label: "Annonces", icon: "Megaphone" },
       { href: "/dashboard/verification", label: "À Vérifier", icon: "ClipboardCheck" },
     ],
   },
