@@ -12,7 +12,7 @@ import {
   ChevronRight, Star, Phone, Mail, MapPinned, 
   Users, Building2, Award, HeartHandshake, Construction,
   AlertTriangle, QrCode, MessageSquare, ExternalLink,
-  CalendarDays, Plane, FileText, CalendarCheck, Passport, HelpCircle, Download, Wallet, Search, User
+  CalendarDays, Plane, FileText, CalendarCheck, IdCard, HelpCircle, Download, Wallet, Search, User
 } from "lucide-react";
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -89,7 +89,7 @@ export default function HomePage() {
     { icon: CalendarDays, title: "Congé Académique", desc: "Demander un congé (médical, familial...)", href: "/conges/demander", color: "from-cyan-500 to-blue-600", urgent: false },
     { icon: Plane, title: "Billet de Voyage", desc: "Vacances et rapatriement", href: "/billets/demander", color: "from-purple-500 to-pink-600", urgent: false },
     { icon: CalendarCheck, title: "Rendez-vous Consulaire", desc: "Prendre RDV (visa, passeport, légalisation...)", href: "/rdv", color: "from-violet-500 to-purple-600", urgent: false },
-    { icon: Passport, title: "Renouvellement Passeport", desc: "Faire une demande de passeport en ligne", href: "/renouvellement-passeport", color: "from-rose-500 to-pink-600", urgent: false },
+    { icon: IdCard, title: "Renouvellement Passeport", desc: "Faire une demande de passeport en ligne", href: "/renouvellement-passeport", color: "from-rose-500 to-pink-600", urgent: false },
     { icon: HelpCircle, title: "FAQ", desc: "Questions fréquentes sur les services consulaires", href: "/faq", color: "from-sky-500 to-cyan-600", urgent: false },
     { icon: Download, title: "Téléchargements", desc: "Formulaires, guides et modèles à télécharger", href: "/telechargements", color: "from-indigo-500 to-blue-600", urgent: false },
     { icon: Wallet, title: "Bourses d'Études", desc: "Calendrier, montants, conditions d'éligibilité", href: "/bourses", color: "from-emerald-500 to-teal-600", urgent: false },
