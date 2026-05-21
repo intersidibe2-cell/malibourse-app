@@ -1,5 +1,18 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createEntityHandler } from "@/lib/entity-handler";
+import { verifyToken } from "@/lib/auth";
+
+const ALLOWED_ROLES = ["ambassadeur", "defense"];
+
+async function checkRole(request: NextRequest) {
+  const token = request.cookies.get("token")?.value;
+  if (!token) return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
+  const payload = await verifyToken(token);
+  if (!payload || !ALLOWED_ROLES.includes(payload.role)) {
+    return NextResponse.json({ error: "Accès non autorisé" }, { status: 403 });
+  }
+  return null;
+}
 
 const handler = createEntityHandler({
   table: "etudiants_militaires",
@@ -17,5 +30,14 @@ const handler = createEntityHandler({
   orderDir: "ASC",
 });
 
-export async function GET(request: NextRequest) { return handler.GET(request); }
-export async function POST(request: NextRequest) { return handler.POST(request); }
+export async function GET(request: NextRequest) {
+  const err = await checkRole(request);
+  if (err) return err;
+  return handler.GET(request);
+}
+
+export async function POST(request: NextRequest) {
+  const err = await checkRole(request);
+  if (err) return err;
+  return handler.POST(request);
+}
