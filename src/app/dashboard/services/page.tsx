@@ -1,6 +1,6 @@
 "use client";
 
-import { Construction, FileText, IdCard, Stamp, ScrollText, CalendarClock, Passport, AlertTriangle, Lightbulb } from "lucide-react";
+import { Construction, FileText, IdCard, Stamp, ScrollText, CalendarClock, BadgeAlert, AlertTriangle, Lightbulb } from "lucide-react";
 
 const futursServices = [
   { icon: FileText, title: "Légalisation de documents", desc: "Légalisation des diplômes et actes officiels", color: "from-blue-400 to-blue-500", statut: "planification" },
@@ -8,7 +8,7 @@ const futursServices = [
   { icon: Stamp, title: "Timbres consulaires", desc: "Achat et paiement en ligne", color: "from-amber-400 to-amber-500", statut: "planification" },
   { icon: ScrollText, title: "Certificats d'état civil", desc: "Mariage, décès, naissance — demande en ligne", color: "from-purple-400 to-purple-500", statut: "planification" },
   { icon: CalendarClock, title: "RDV avec le Consul", desc: "Prise de rendez-vous en ligne", color: "from-rose-400 to-rose-500", statut: "prioritaire" },
-  { icon: Passport, title: "Renouvellement passeport", desc: "Demande et suivi de fabrication", color: "from-cyan-400 to-cyan-500", statut: "prioritaire" },
+  { icon: BadgeAlert, title: "Renouvellement passeport", desc: "Demande et suivi de fabrication", color: "from-cyan-400 to-cyan-500", statut: "prioritaire" },
   { icon: AlertTriangle, title: "Signalement d'urgence", desc: "Incident, urgence ou situation critique", color: "from-red-400 to-red-500", statut: "prioritaire" },
 ];
 

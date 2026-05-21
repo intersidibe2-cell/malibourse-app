@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, FileText, IdCard, Stamp, ScrollText, CalendarClock, Passport, AlertTriangle, Construction } from "lucide-react";
+import { ArrowLeft, FileText, IdCard, Stamp, ScrollText, CalendarClock, BadgeAlert, AlertTriangle, Construction } from "lucide-react";
 
 const futursServices = [
   { icon: FileText, title: "Légalisation de documents", desc: "Légalisation des diplômes, actes et documents officiels pour la Russie", color: "from-blue-400 to-blue-500" },
@@ -9,7 +9,7 @@ const futursServices = [
   { icon: Stamp, title: "Timbres & droits consulaires", desc: "Achat de timbres consulaires et paiement des droits en ligne", color: "from-amber-400 to-amber-500" },
   { icon: ScrollText, title: "Certificats d'état civil", desc: "Demande de certificats de mariage, décès, naissance", color: "from-purple-400 to-purple-500" },
   { icon: CalendarClock, title: "RDV avec le Consul", desc: "Prise de rendez-vous en ligne avec le consul ou les agents", color: "from-rose-400 to-rose-500" },
-  { icon: Passport, title: "Renouvellement de passeport", desc: "Demande de renouvellement et suivi de fabrication", color: "from-cyan-400 to-cyan-500" },
+  { icon: BadgeAlert, title: "Renouvellement de passeport", desc: "Demande de renouvellement et suivi de fabrication", color: "from-cyan-400 to-cyan-500" },
   { icon: AlertTriangle, title: "Signalement d'un problème", desc: "Signaler un incident, une urgence ou une situation critique", color: "from-red-400 to-red-500" },
 ];
 
