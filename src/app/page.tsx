@@ -115,35 +115,36 @@ export default function HomePage() {
           <div className="flex-1 bg-red-600" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 pt-32 pb-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 pt-24 sm:pt-32 pb-16 sm:pb-20">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-2 mb-6 animate-fade-in">
-              <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-              <span className="text-yellow-300/80 text-sm font-medium tracking-wider uppercase">Ambassade de la République du Mali à Moscou</span>
+            <div className="flex items-center justify-center gap-2 mb-4 sm:mb-6 animate-fade-in">
+              <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+              <span className="text-yellow-300/80 text-[10px] sm:text-sm font-medium tracking-wider uppercase">Ambassade de la République du Mali à Moscou</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 animate-fade-in-up text-center">
-              Plateforme de Gestion des<br />
+            <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-4 sm:mb-6 animate-fade-in-up text-center px-2">
+              Plateforme de Gestion des<br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">Ressortissants Maliens</span>
-              <br />en Russie
+              <br className="hidden sm:block" />en Russie
             </h1>
 
-            <p className="text-lg md:text-xl text-green-100/90 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up text-center" style={{ animationDelay: "0.2s" }}>
+            <p className="text-sm sm:text-lg md:text-xl text-green-100/90 mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in-up text-center px-2">
               L'Ambassade du Mali à Moscou vous accompagne au quotidien dans toutes vos démarches 
               administratives et consulaires sur l'ensemble du territoire de la Fédération de Russie.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-              <Button size="lg" onClick={() => router.push("/inscription")} className="bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold px-8 py-6 text-lg shadow-2xl hover:shadow-yellow-500/30 transition-all hover:scale-105">
-                S'inscrire sur la plateforme
-                <ArrowRight className="ml-2 w-5 h-5" />
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-4 animate-fade-in-up px-2">
+              <Button onClick={() => router.push("/inscription")} className="bg-yellow-500 hover:bg-yellow-400 text-green-900 font-bold px-4 sm:px-8 py-3 sm:py-6 text-sm sm:text-lg shadow-2xl hover:shadow-yellow-500/30 transition-all hover:scale-105">
+                S'inscrire
+                <ArrowRight className="ml-1.5 w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
-              <Button size="lg" variant="outline" onClick={() => router.push("/accueil")} className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg backdrop-blur-sm">
-                Nos services
+              <Button variant="outline" onClick={() => router.push("/accueil")} className="border-2 border-white/30 text-white hover:bg-white/10 px-4 sm:px-6 py-3 sm:py-6 text-sm sm:text-lg backdrop-blur-sm">
+                Services
               </Button>
-              <Button size="lg" variant="outline" onClick={() => router.push("/arrivee")} className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg backdrop-blur-sm">
-                <MapPinned className="w-5 h-5 mr-2" />
-                Signalement arrivée
+              <Button variant="outline" onClick={() => router.push("/arrivee")} className="border-2 border-white/30 text-white hover:bg-white/10 px-3 sm:px-6 py-3 sm:py-6 text-sm sm:text-lg backdrop-blur-sm">
+                <MapPinned className="w-3.5 h-3.5 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Signalement arrivée</span>
+                <span className="sm:hidden">Arrivée</span>
               </Button>
             </div>
           </div>
@@ -213,20 +214,17 @@ export default function HomePage() {
               L'Ambassade du Mali à Moscou propose des services adaptés à chaque situation des ressortissants maliens en Fédération de Russie.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {[...services, ...urgentServices].map((s, i) => {
               const Icon = s.icon;
               return (
-                <a key={i} href={s.href} className={`group relative overflow-hidden rounded-2xl p-6 ${s.urgent ? "bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-200" : "bg-white border border-gray-200"} hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}>
-                  {s.urgent && <div className="absolute top-3 right-3 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-medium animate-pulse">Urgent</div>}
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-6 h-6 text-white" />
+                <a key={i} href={s.href} className={`group relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-6 ${s.urgent ? "bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-200" : "bg-white border border-gray-200"} hover:shadow-lg transition-all duration-300`}>
+                  {s.urgent && <div className="absolute top-2 right-2 bg-red-500 text-white text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-medium">Urgent</div>}
+                  <div className={`w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-2 sm:mb-4 shadow-md group-hover:scale-110 transition-transform`}>
+                    <Icon className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-green-700 transition-colors">{s.title}</h3>
-                  <p className="text-sm text-gray-500">{s.desc}</p>
-                  <div className="mt-3 flex items-center text-sm text-green-700 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    Accéder <ChevronRight className="w-4 h-4 ml-1" />
-                  </div>
+                  <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-0.5 sm:mb-1 group-hover:text-green-700 transition-colors">{s.title}</h3>
+                  <p className="text-xs sm:text-sm text-gray-500">{s.desc}</p>
                 </a>
               );
             })}

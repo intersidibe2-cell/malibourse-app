@@ -57,6 +57,8 @@ export default function ImprimerPage() {
             src={`${QR_API}?size=400x400&data=${encodeURIComponent(a.url)}`}
             alt="QR Code"
             className="w-48 h-48"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 

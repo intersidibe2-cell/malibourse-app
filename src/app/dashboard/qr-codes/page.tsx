@@ -55,6 +55,8 @@ export default function QrCodesPage() {
                 src={`${QR_API}?size=${size}x${size}&data=${encodeURIComponent(a.url)}`}
                 alt={`QR Code ${a.titre}`}
                 className="w-40 h-40 rounded-lg border border-gray-100"
+                loading="lazy"
+                decoding="async"
               />
               <p className="text-[10px] text-gray-400 mt-2 font-mono">{a.url}</p>
             </div>
