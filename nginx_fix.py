@@ -5,20 +5,17 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect("130.49.148.253", 22, "root", "dvfHuqlxyO5mh6o2", timeout=30)
 
-def run(cmd, t=30):
+def run(cmd, t=15):
     i, o, e = ssh.exec_command(cmd, timeout=t)
     o.channel.recv_exit_status()
     return o.read().decode("utf-8", errors="replace").strip()
 
-# Add cache headers for static assets via Nginx
-print("Adding caching rules to Nginx...", flush=True)
 sftp = ssh.open_sftp()
 with sftp.open("/etc/nginx/sites-available/etudiantsmali.ru", "r") as f:
     config = f.read().decode("utf-8")
 
-# Add caching inside the server block
-cache_rules = """
-    # Cache static assets
+# Remove the /_next/static location that conflicts with Next.js
+old = """\n    # Cache static assets
     location ~* \\.(jpg|jpeg|png|gif|ico|css|js|woff2?)$ {
         expires 30d;
         access_log off;
@@ -30,19 +27,20 @@ cache_rules = """
         expires 365d;
         access_log off;
         add_header Cache-Control "public, immutable";
-    }
-"""
+    }"""
 
-if "etudiantsmali.ru" in config:
-    config = config.replace("server_name etudiantsmali.ru www.etudiantsmali.ru;", "server_name etudiantsmali.ru www.etudiantsmali.ru;\n" + cache_rules)
-    
-    with sftp.open("/etc/nginx/sites-available/etudiantsmali.ru", "w") as f:
-        f.write(config)
-    print("Nginx config updated with caching!", flush=True)
-else:
-    print("Config not found!", flush=True)
+new = """\n    # Cache static assets (immutable hashed files)
+    location ~* \\.(jpg|jpeg|png|gif|ico|css|js|woff2?)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }"""
 
+config = config.replace(old, new)
+
+with sftp.open("/etc/nginx/sites-available/etudiantsmali.ru", "w") as f:
+    f.write(config)
 sftp.close()
+print("Nginx config fixed (removed /_next/static alias)", flush=True)
 
 run("nginx -t && systemctl reload nginx")
 print("Nginx reloaded!", flush=True)
