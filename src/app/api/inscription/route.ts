@@ -4,11 +4,13 @@ import { query } from "@/lib/db";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { profil, nom, prenom, numero_passeport, email, telephone_rus, photo_id, passeport_id, ...rest } = body;
+    const { profil, nom, prenom, numero_passeport, email, telephone_rus, photo_id, passeport_id, ville, ville_autre, ...rest } = body;
 
     if (!nom || !prenom || !numero_passeport) {
       return NextResponse.json({ error: "Nom, prénom et passeport obligatoires" }, { status: 400 });
     }
+
+    const villeFinale = ville === "Autre" ? (ville_autre || null) : (ville || null);
 
     const result = await query(
       `INSERT INTO etudiants (nom, prenom, date_naissance, sexe, numero_passeport, telephone, email, ville, universite, filiere, niveau, date_arrivee, date_fin_cycle, montant_mensuel, statut_bourse, observations)
@@ -20,7 +22,7 @@ export async function POST(request: NextRequest) {
         numero_passeport,
         telephone_rus || null,
         email || null,
-        rest.ville || null,
+        villeFinale,
         rest.universite || null,
         rest.filiere || null,
         rest.niveau || null,

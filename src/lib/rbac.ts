@@ -7,10 +7,11 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       "paiements", "conges", "doleances", "travailleurs", "visiteurs",
       "residents", "declarations-arrivee", "suivi-boursiers", "billets-voyage",
       "verification", "sans-papiers", "detentions", "alertes", "import",
-      "ressortissants", "qr-codes", "services", "signalements",
+      "ressortissants", "qr-codes", "services", "signalements", "annonces",
     ],
     menu: [
       { href: "/dashboard", label: "Tableau de Bord", icon: "LayoutDashboard" },
+      { href: "/dashboard/annonces", label: "Annonces", icon: "Megaphone" },
       { href: "/dashboard/etudiants", label: "Étudiants Boursiers", icon: "GraduationCap" },
       { href: "/dashboard/etudiants-contractuels", label: "Contractuels", icon: "BookOpen" },
       { href: "/dashboard/etudiants-militaires", label: "Militaires", icon: "Shield" },

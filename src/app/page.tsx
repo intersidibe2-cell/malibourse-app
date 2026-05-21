@@ -40,6 +40,33 @@ function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; d
   return <div ref={ref} className="text-4xl md:text-5xl font-bold text-yellow-400">{count}{suffix}</div>;
 }
 
+function AnnoncesList() {
+  const [annonces, setAnnonces] = useState<any[]>([]);
+  useEffect(() => {
+    fetch("/api/annonces/public?limit=3")
+      .then(r => r.json())
+      .then(d => setAnnonces(d.data || []))
+      .catch(() => {});
+  }, []);
+  if (annonces.length === 0) return null;
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {annonces.map((a) => (
+        <div key={a.id} className="bg-gray-50 rounded-xl p-5 border hover:shadow-md transition-shadow">
+          <div className="flex items-center gap-2 mb-3">
+            {a.categorie === "Urgent" && <AlertTriangle className="w-4 h-4 text-red-500" />}
+            <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${a.categorie === "Urgent" ? "bg-red-100 text-red-700" : a.categorie === "Note officielle" ? "bg-blue-100 text-blue-700" : "bg-green-100 text-green-700"}`}>
+              {a.categorie}
+            </span>
+          </div>
+          <h3 className="font-semibold text-gray-900 text-sm mb-1 line-clamp-2">{a.titre}</h3>
+          <p className="text-xs text-gray-500 line-clamp-3">{a.contenu}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function HomePage() {
   const router = useRouter();
   const locale = useLocale();
@@ -242,6 +269,22 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
         </div>
       </section>
 
+      {/* Annonces */}
+      <section className="py-16 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-green-900">Actualités</h2>
+              <p className="text-gray-500 mt-2">Dernières annonces de l'Ambassade</p>
+            </div>
+            <Link href="/actualites" className="text-sm text-green-700 hover:text-green-800 font-medium flex items-center gap-1">
+              Voir tout <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <AnnoncesList />
+        </div>
+      </section>
+
       {/* Urgence Banner */}
       <section className="py-12 bg-gradient-to-r from-red-600 via-red-500 to-orange-500 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0L40 20L20 40L0 20Z' fill='%23ffffff'/%3E%3C/svg%3E\")" }} />
@@ -405,6 +448,7 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
               <h4 className="font-semibold text-yellow-400 mb-4 text-sm uppercase tracking-wider">Liens</h4>
               <ul className="space-y-2 text-sm text-green-300">
                 <li><a href="/presentation" className="hover:text-white transition-colors">À propos</a></li>
+                <li><a href="/actualites" className="hover:text-white transition-colors">Actualités</a></li>
                 <li><a href="/services" className="hover:text-white transition-colors">Services à venir</a></li>
                 <li><a href="/login" className="hover:text-white transition-colors">Espace ambassade</a></li>
               </ul>

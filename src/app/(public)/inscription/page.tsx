@@ -175,7 +175,7 @@ export default function InscriptionPage() {
 
               <div>
                 <Label>Ville</Label>
-                <Select value={form.ville || ""} onValueChange={v => updateField("ville", v)}>
+                <Select value={form.ville && !["Moscou","Saint-Pétersbourg","Kazan","Voronej","Rostov-sur-le-Don","Novossibirsk","Ekaterinbourg"].includes(form.ville) ? "Autre" : form.ville || ""} onValueChange={v => updateField("ville", v)}>
                   <SelectTrigger><SelectValue placeholder="Sélectionner" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Moscou">Moscou</SelectItem>
@@ -185,9 +185,14 @@ export default function InscriptionPage() {
                     <SelectItem value="Rostov-sur-le-Don">Rostov-sur-le-Don</SelectItem>
                     <SelectItem value="Novossibirsk">Novossibirsk</SelectItem>
                     <SelectItem value="Ekaterinbourg">Ekaterinbourg</SelectItem>
-                    <SelectItem value="Autre">Autre</SelectItem>
+                    <SelectItem value="Autre">Autre (saisir)</SelectItem>
                   </SelectContent>
                 </Select>
+                {form.ville === "Autre" && (
+                  <div className="mt-2">
+                    <Input placeholder="Saisissez votre ville" value={form.ville_autre || ""} onChange={e => updateField("ville_autre", e.target.value)} />
+                  </div>
+                )}
               </div>
 
               <hr className="my-4" />
@@ -287,8 +292,7 @@ export default function InscriptionPage() {
               {/* Photos section */}
               <hr className="my-4" />
               <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
-                <h3 className="font-semibold text-gray-900 text-sm mb-1">Photos (optionnel)</h3>
-                <p className="text-xs text-gray-500 mb-3">Vous pouvez ajouter ces photos plus tard depuis votre espace personnel</p>
+                <h3 className="font-semibold text-gray-900 text-sm mb-3">Photos (optionnel)</h3>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <Label className="text-xs">Photo d'identité</Label>

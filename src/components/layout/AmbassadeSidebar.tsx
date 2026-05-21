@@ -8,7 +8,7 @@ import {
   CreditCard, Briefcase, MapPin, House, MessageSquare,
   Calendar, Plane, Ticket, FileQuestion, Lock,
   ClipboardCheck, Bell, Upload, Users, LogOut, Menu,
-  ChevronLeft, ChevronRight, Globe, QrCode, TriangleAlert, Construction, AlertTriangle,
+  ChevronLeft, ChevronRight, Globe, QrCode, TriangleAlert, Construction, AlertTriangle, Megaphone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getMenu, type Role } from "@/lib/rbac";
@@ -17,7 +17,7 @@ const iconMap: Record<string, React.ElementType> = {
   LayoutDashboard, GraduationCap, BookOpen, Shield,
   CreditCard, Briefcase, MapPin, House, MessageSquare,
   Calendar, Plane, Ticket, FileQuestion, Lock,
-  ClipboardCheck, Bell, Upload, Users, QrCode, TriangleAlert, Construction, AlertTriangle,
+  ClipboardCheck, Bell, Upload, Users, QrCode, TriangleAlert, Construction, AlertTriangle, Megaphone,
 };
 
 interface SidebarProps {
