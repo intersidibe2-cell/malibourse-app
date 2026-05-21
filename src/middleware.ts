@@ -26,6 +26,14 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/conges") ||
     pathname.startsWith("/billets") ||
     pathname.startsWith("/actualites") ||
+    pathname.startsWith("/rdv") ||
+    pathname.startsWith("/renouvellement-passeport") ||
+    pathname.startsWith("/faq") ||
+    pathname.startsWith("/telechargements") ||
+    pathname.startsWith("/bourses") ||
+    pathname.startsWith("/suivi") ||
+    pathname.startsWith("/espace-etudiant") ||
+    pathname.startsWith("/mentions-legales") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/uploads");

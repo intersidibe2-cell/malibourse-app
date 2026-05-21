@@ -12,7 +12,7 @@ import {
   ChevronRight, Star, Phone, Mail, MapPinned, 
   Users, Building2, Award, HeartHandshake, Construction,
   AlertTriangle, QrCode, MessageSquare, ExternalLink,
-  CalendarDays, Plane, FileText
+  CalendarDays, Plane, FileText, CalendarCheck, Passport, HelpCircle, Download, Wallet, Search, User
 } from "lucide-react";
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -88,13 +88,19 @@ export default function HomePage() {
     { icon: House, title: "Résidents Permanents", desc: "Suivi des Maliens établis en Russie", href: "/inscription", color: "from-teal-500 to-teal-600", urgent: false },
     { icon: CalendarDays, title: "Congé Académique", desc: "Demander un congé (médical, familial...)", href: "/conges/demander", color: "from-cyan-500 to-blue-600", urgent: false },
     { icon: Plane, title: "Billet de Voyage", desc: "Vacances et rapatriement", href: "/billets/demander", color: "from-purple-500 to-pink-600", urgent: false },
+    { icon: CalendarCheck, title: "Rendez-vous Consulaire", desc: "Prendre RDV (visa, passeport, légalisation...)", href: "/rdv", color: "from-violet-500 to-purple-600", urgent: false },
+    { icon: Passport, title: "Renouvellement Passeport", desc: "Faire une demande de passeport en ligne", href: "/renouvellement-passeport", color: "from-rose-500 to-pink-600", urgent: false },
+    { icon: HelpCircle, title: "FAQ", desc: "Questions fréquentes sur les services consulaires", href: "/faq", color: "from-sky-500 to-cyan-600", urgent: false },
+    { icon: Download, title: "Téléchargements", desc: "Formulaires, guides et modèles à télécharger", href: "/telechargements", color: "from-indigo-500 to-blue-600", urgent: false },
+    { icon: Wallet, title: "Bourses d'Études", desc: "Calendrier, montants, conditions d'éligibilité", href: "/bourses", color: "from-emerald-500 to-teal-600", urgent: false },
+    { icon: Search, title: "Suivi de Demande", desc: "Suivez vos demandes avec votre numéro de référence", href: "/suivi", color: "from-orange-500 to-amber-600", urgent: false },
+    { icon: User, title: "Espace Étudiant", desc: "Connectez-vous pour accéder à votre dossier", href: "/espace-etudiant", color: "from-blue-500 to-indigo-600", urgent: false },
   ];
 
   const urgentServices = [
     { icon: FileQuestion, title: "Sans Papiers", desc: "Aide confidentielle", href: "/inscription", color: "from-red-500 to-red-600", urgent: true },
     { icon: Lock, title: "Assistance Détention", desc: "Suivi consulaire urgent", href: "/inscription", color: "from-gray-700 to-gray-900", urgent: true },
     { icon: AlertTriangle, title: "Signalement d'un problème", desc: "Incident, urgence ou situation critique", href: "/signalements/soumettre", color: "from-orange-500 to-red-600", urgent: true },
-    { icon: Construction, title: "Autres services à venir", desc: "Légalisation, RDV, passeport, certificats...", href: "/services", color: "from-amber-500 to-amber-600", urgent: false },
   ];
 
   const toggleLocale = () => {
@@ -443,8 +449,11 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
                 <li><a href="/arrivee" className="hover:text-white transition-colors">Signaler mon arrivée</a></li>
                 <li><a href="/conges/demander" className="hover:text-white transition-colors">Congé académique</a></li>
                 <li><a href="/billets/demander" className="hover:text-white transition-colors">Billet de voyage</a></li>
+                <li><a href="/rdv" className="hover:text-white transition-colors">Rendez-vous consulaire</a></li>
+                <li><a href="/renouvellement-passeport" className="hover:text-white transition-colors">Renouvellement passeport</a></li>
                 <li><a href="/doleances/soumettre" className="hover:text-white transition-colors">Doléances</a></li>
                 <li><a href="/signalements/soumettre" className="hover:text-white transition-colors flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Signalement urgence</a></li>
+                <li><a href="/suivi" className="hover:text-white transition-colors">Suivi de demande</a></li>
               </ul>
             </div>
             <div>
@@ -452,8 +461,11 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
               <ul className="space-y-2 text-sm text-green-300">
                 <li><a href="/presentation" className="hover:text-white transition-colors">À propos</a></li>
                 <li><a href="/actualites" className="hover:text-white transition-colors">Actualités</a></li>
+                <li><a href="/faq" className="hover:text-white transition-colors">FAQ</a></li>
+                <li><a href="/telechargements" className="hover:text-white transition-colors">Téléchargements</a></li>
+                <li><a href="/bourses" className="hover:text-white transition-colors">Bourses d'études</a></li>
+                <li><a href="/espace-etudiant" className="hover:text-white transition-colors">Espace étudiant</a></li>
                 <li><a href="/mentions-legales" className="hover:text-white transition-colors">Mentions légales</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Services à venir</a></li>
                 <li><a href="/login" className="hover:text-white transition-colors">Espace ambassade</a></li>
               </ul>
             </div>

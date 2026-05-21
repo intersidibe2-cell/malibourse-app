@@ -3,7 +3,7 @@ import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { query } from "@/lib/db";
 
-const ALLOWED_TYPES = ["photo", "passeport", "conge_demande", "conge_justificatif", "billet_demande", "billet_justificatif"];
+const ALLOWED_TYPES = ["photo", "passeport", "conge_demande", "conge_justificatif", "billet_demande", "billet_justificatif", "passeport_renouvellement", "rdv_justificatif"];
 const MAX_SIZE = 10 * 1024 * 1024; // 10 MB
 
 export async function POST(request: NextRequest) {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const ext = file.name.split(".").pop()?.toLowerCase() || "pdf";
     const uuid = crypto.randomUUID();
     const fileName = `${uuid}.${ext}`;
-    const subDir = type.startsWith("conge") ? "conges" : type.startsWith("billet") ? "billets" : type === "photo" ? "photos" : "passports";
+    const subDir = type.startsWith("conge") ? "conges" : type.startsWith("billet") ? "billets" : type === "photo" ? "photos" : type.startsWith("rdv") ? "rdv" : "passports";
     const uploadDir = join(process.cwd(), "public", "uploads", subDir);
 
     await mkdir(uploadDir, { recursive: true });

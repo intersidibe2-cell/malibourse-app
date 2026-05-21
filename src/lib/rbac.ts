@@ -8,6 +8,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       "residents", "declarations-arrivee", "suivi-boursiers", "billets-voyage",
       "verification", "sans-papiers", "detentions", "alertes", "import",
       "ressortissants", "qr-codes", "services", "signalements", "annonces",
+      "rdv", "renouvellements", "faq", "telechargements",
     ],
     menu: [
       { href: "/dashboard", label: "Tableau de Bord", icon: "LayoutDashboard" },
@@ -21,7 +22,11 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       { href: "/dashboard/residents", label: "Résidents", icon: "House" },
       { href: "/dashboard/doleances", label: "Doléances", icon: "MessageSquare" },
       { href: "/dashboard/signalements", label: "Signalements", icon: "AlertTriangle" },
+      { href: "/dashboard/rdv", label: "Rendez-vous", icon: "CalendarCheck" },
+      { href: "/dashboard/renouvellements", label: "Passeports", icon: "Passport" },
       { href: "/dashboard/conges", label: "Congés", icon: "Calendar" },
+      { href: "/dashboard/faq", label: "FAQ", icon: "HelpCircle" },
+      { href: "/dashboard/telechargements", label: "Téléchargements", icon: "Download" },
       { href: "/dashboard/declarations-arrivee", label: "Déclarations", icon: "Plane" },
       { href: "/dashboard/billets-voyage", label: "Billets", icon: "Ticket" },
       { href: "/dashboard/sans-papiers", label: "Sans Papiers", icon: "FileQuestion" },
@@ -54,7 +59,7 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
     ],
   },
   consulaire: {
-    modules: ["dashboard", "travailleurs", "visiteurs", "residents", "sans-papiers", "detentions", "alertes", "declarations-arrivee", "doleances", "signalements", "annonces"],
+    modules: ["dashboard", "travailleurs", "visiteurs", "residents", "sans-papiers", "detentions", "alertes", "declarations-arrivee", "doleances", "signalements", "annonces", "rdv", "renouvellements", "faq", "telechargements"],
     menu: [
       { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard" },
       { href: "/dashboard/annonces", label: "Annonces", icon: "Megaphone" },
@@ -66,6 +71,10 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
       { href: "/dashboard/detentions", label: "Détentions", icon: "Lock" },
       { href: "/dashboard/alertes", label: "Alertes", icon: "Bell" },
       { href: "/dashboard/signalements", label: "Signalements", icon: "AlertTriangle" },
+      { href: "/dashboard/rdv", label: "Rendez-vous", icon: "CalendarCheck" },
+      { href: "/dashboard/renouvellements", label: "Passeports", icon: "Passport" },
+      { href: "/dashboard/faq", label: "FAQ", icon: "HelpCircle" },
+      { href: "/dashboard/telechargements", label: "Téléchargements", icon: "Download" },
     ],
   },
   defense: {
@@ -76,10 +85,13 @@ export const rolePermissions: Record<Role, { modules: string[]; menu: { href: st
     ],
   },
   secretariat: {
-    modules: ["dashboard", "verification", "etudiants", "travailleurs", "visiteurs", "declarations-arrivee", "annonces"],
+    modules: ["dashboard", "verification", "etudiants", "travailleurs", "visiteurs", "declarations-arrivee", "annonces", "rdv", "renouvellements", "faq", "telechargements"],
     menu: [
       { href: "/dashboard", label: "Dashboard", icon: "LayoutDashboard" },
       { href: "/dashboard/annonces", label: "Annonces", icon: "Megaphone" },
+      { href: "/dashboard/rdv", label: "Rendez-vous", icon: "CalendarCheck" },
+      { href: "/dashboard/faq", label: "FAQ", icon: "HelpCircle" },
+      { href: "/dashboard/telechargements", label: "Téléchargements", icon: "Download" },
       { href: "/dashboard/verification", label: "À Vérifier", icon: "ClipboardCheck" },
     ],
   },
