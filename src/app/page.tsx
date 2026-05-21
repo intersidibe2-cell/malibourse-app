@@ -155,7 +155,7 @@ export default function HomePage() {
             </div>
 
             <h1 className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-snug sm:leading-tight mb-4 sm:mb-6 animate-fade-in-up text-center px-2">
-              Plateforme de<br className="sm:hidden" />Gestion des<br className="hidden sm:block" />
+              Plateforme de <br className="sm:hidden" />Gestion des<br className="hidden sm:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">Ressortissants Maliens</span>
               <br className="hidden sm:block" />en Russie
             </h1>
