@@ -5,7 +5,7 @@ const handler = createEntityHandler({
   table: "conges_academiques",
   allowedFields: [
     "etudiant_id", "etudiant_nom", "type_conge", "motif",
-    "date_debut", "date_fin", "statut", "observations",
+    "date_debut", "date_fin", "statut", "observations", "pieces_jointes", "email",
   ],
 });
 

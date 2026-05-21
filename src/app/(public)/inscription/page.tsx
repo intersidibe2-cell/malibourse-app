@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, CheckCircle, Upload } from "lucide-react";
+import { ArrowLeft, CheckCircle, Upload, Image, FileText, X } from "lucide-react";
 import Link from "next/link";
 
 const PROFILS = [
@@ -23,13 +23,40 @@ const PROFILS = [
 
 export default function InscriptionPage() {
   const router = useRouter();
-  const [step, setStep] = useState(1); // 1=profil, 2=form, 3=success
+  const [step, setStep] = useState(1);
   const [profil, setProfil] = useState("");
   const [form, setForm] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [photoId, setPhotoId] = useState<string | null>(null);
+  const [photoNom, setPhotoNom] = useState<string | null>(null);
+  const [passeportId, setPasseportId] = useState<string | null>(null);
+  const [passeportNom, setPasseportNom] = useState<string | null>(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [uploadingPasseport, setUploadingPasseport] = useState(false);
 
   const updateField = (key: string, value: string) => setForm(prev => ({ ...prev, [key]: value }));
+
+  const uploadPhoto = async (file: File, type: "photo" | "passeport") => {
+    const setter = type === "photo" ? setUploadingPhoto : setUploadingPasseport;
+    setter(true);
+    setError("");
+    try {
+      if (file.size > 5 * 1024 * 1024) throw new Error("Fichier trop volumineux (max 5 MB)");
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("type", type);
+      const res = await fetch("/api/upload/public", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      if (type === "photo") { setPhotoId(data.id); setPhotoNom(data.nom); }
+      else { setPasseportId(data.id); setPasseportNom(data.nom); }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Erreur upload");
+    } finally {
+      setter(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +66,7 @@ export default function InscriptionPage() {
       const res = await fetch("/api/inscription", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profil, ...form }),
+        body: JSON.stringify({ profil, ...form, photo_id: photoId, passeport_id: passeportId }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Erreur lors de l'inscription");
@@ -62,6 +89,7 @@ export default function InscriptionPage() {
             Vous recevrez une confirmation par email après vérification.
           </p>
           <Link href="/" className="text-green-700 hover:text-green-800 underline text-sm">Retour à l'accueil</Link>
+          <button onClick={() => { setStep(1); setProfil(""); setForm({}); setPhotoId(null); setPhotoNom(null); setPasseportId(null); setPasseportNom(null); }} className="text-gray-500 hover:text-gray-700 underline text-sm">Nouvelle inscription</button>
         </div>
       </div>
     );
@@ -255,6 +283,59 @@ export default function InscriptionPage() {
               <hr className="my-4" />
 
               <div><Label>Contact urgence (nom et téléphone)</Label><Input value={form.contact_urgence || ""} onChange={e => updateField("contact_urgence", e.target.value)} /></div>
+
+              {/* Photos section */}
+              <hr className="my-4" />
+              <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-200">
+                <h3 className="font-semibold text-gray-900 text-sm mb-1">Photos (optionnel)</h3>
+                <p className="text-xs text-gray-500 mb-3">Vous pouvez ajouter ces photos plus tard depuis votre espace personnel</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label className="text-xs">Photo d'identité</Label>
+                    <div className="mt-1">
+                      {photoId ? (
+                        <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border text-xs">
+                          <div className="flex items-center gap-1.5 truncate">
+                            <Image className="w-3.5 h-3.5 text-green-600 shrink-0" />
+                            <span className="truncate">{photoNom}</span>
+                          </div>
+                          <button type="button" onClick={() => { setPhotoId(null); setPhotoNom(null); }} className="text-red-500 hover:text-red-700 shrink-0">
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg bg-white border border-gray-300 border-dashed cursor-pointer hover:bg-green-50 hover:border-green-400 transition-colors text-xs text-gray-600">
+                          <Upload className="w-4 h-4" />
+                          {uploadingPhoto ? "Upload..." : "Choisir une photo"}
+                          <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadPhoto(f, "photo"); e.target.value = ""; }} disabled={uploadingPhoto} />
+                        </label>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <Label className="text-xs">Photo du passeport</Label>
+                    <div className="mt-1">
+                      {passeportId ? (
+                        <div className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border text-xs">
+                          <div className="flex items-center gap-1.5 truncate">
+                            <FileText className="w-3.5 h-3.5 text-green-600 shrink-0" />
+                            <span className="truncate">{passeportNom}</span>
+                          </div>
+                          <button type="button" onClick={() => { setPasseportId(null); setPasseportNom(null); }} className="text-red-500 hover:text-red-700 shrink-0">
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ) : (
+                        <label className="flex items-center justify-center gap-2 px-3 py-3 rounded-lg bg-white border border-gray-300 border-dashed cursor-pointer hover:bg-green-50 hover:border-green-400 transition-colors text-xs text-gray-600">
+                          <Upload className="w-4 h-4" />
+                          {uploadingPasseport ? "Upload..." : "Choisir une photo"}
+                          <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadPhoto(f, "passeport"); e.target.value = ""; }} disabled={uploadingPasseport} />
+                        </label>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div className="flex justify-between gap-3 pt-4">
                 <Button type="button" variant="outline" onClick={() => setStep(1)}>Changer de profil</Button>

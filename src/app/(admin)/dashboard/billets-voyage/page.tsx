@@ -4,6 +4,7 @@ import CrudPage from "@/components/shared/CrudPage";
 import StatusBadge from "@/components/shared/StatusBadge";
 import { formatDate, formatCurrency } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { FileText } from "lucide-react";
 
 export default function BilletsVoyagePage() {
   const t = useTranslations();
@@ -16,6 +17,7 @@ export default function BilletsVoyagePage() {
       fields={[
         { key: "etudiant_nom", label: t("form.nom"), type: "text" },
         { key: "etudiant_prenom", label: t("form.prenom"), type: "text" },
+        { key: "email", label: t("form.email"), type: "email" },
         { key: "numero_passeport", label: t("form.numeroPasseport"), type: "text" },
         { key: "universite", label: t("form.universite"), type: "text" },
         { key: "ville", label: t("form.ville"), type: "text" },
@@ -46,13 +48,19 @@ export default function BilletsVoyagePage() {
         ]},
         { key: "motif_demande", label: "Motif de la demande", type: "textarea" },
         { key: "observations", label: t("form.observations"), type: "textarea" },
+        { key: "pieces_jointes", label: "Pièces jointes (JSON)", type: "textarea" },
       ]}
       columns={[
         { key: "etudiant_nom", label: t("form.nom"), render: (v, r) => <span className="font-medium">{r.etudiant_prenom} {v}</span> },
         { key: "type_billet", label: t("form.typeBillet") },
         { key: "date_depart_prevu", label: t("form.dateDepart"), render: (v) => formatDate(v as string) },
-        { key: "compagnie_aerienne", label: t("form.compagnieAerienne") },
         { key: "itineraire", label: t("form.itineraire") },
+        { key: "pieces_jointes", label: "Docs", render: (v) => {
+          if (!v) return <span className="text-gray-400">-</span>;
+          const files = typeof v === "string" ? (() => { try { return JSON.parse(v); } catch { return []; } })() : v;
+          if (files.length === 0) return <span className="text-gray-400">-</span>;
+          return <div className="flex flex-wrap gap-1">{files.map((f: any) => <a key={f.id} href={f.url} target="_blank" className="flex items-center gap-0.5 text-xs bg-purple-50 text-purple-700 px-1.5 py-0.5 rounded hover:bg-purple-100"><FileText className="w-3 h-3" /> Voir</a>)}</div>;
+        }},
         { key: "cout_billet", label: t("form.coutBillet"), render: (v, r) => formatCurrency(v as number, r.devise as string) },
         { key: "statut", label: t("common.status"), render: (v) => <StatusBadge status={v as string} /> },
       ]}

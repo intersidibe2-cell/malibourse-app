@@ -10,7 +10,8 @@ import {
   Briefcase, MapPin, House, FileQuestion, Lock, 
   ChevronRight, Star, Phone, Mail, MapPinned, 
   Users, Building2, Award, HeartHandshake, Construction,
-  AlertTriangle, QrCode, MessageSquare, ExternalLink
+  AlertTriangle, QrCode, MessageSquare, ExternalLink,
+  CalendarDays, Plane
 } from "lucide-react";
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -57,6 +58,8 @@ export default function HomePage() {
     { icon: Briefcase, title: "Travailleurs", desc: "Accompagnement professionnel", href: "/inscription", color: "from-orange-500 to-red-600", urgent: false },
     { icon: MapPin, title: "Visiteurs & Touristes", desc: "Déclaration d'arrivée et assistance", href: "/inscription", color: "from-purple-500 to-purple-600", urgent: false },
     { icon: House, title: "Résidents Permanents", desc: "Suivi des Maliens établis en Russie", href: "/inscription", color: "from-teal-500 to-teal-600", urgent: false },
+    { icon: CalendarDays, title: "Congé Académique", desc: "Demander un congé (médical, familial...)", href: "/conges/demander", color: "from-cyan-500 to-blue-600", urgent: false },
+    { icon: Plane, title: "Billet de Voyage", desc: "Vacances et rapatriement", href: "/billets/demander", color: "from-purple-500 to-pink-600", urgent: false },
   ];
 
   const urgentServices = [
@@ -362,6 +365,8 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
                 <li><a href="/inscription" className="hover:text-white transition-colors">Inscription</a></li>
                 <li><a href="/accueil" className="hover:text-white transition-colors">Portail services</a></li>
                 <li><a href="/arrivee" className="hover:text-white transition-colors">Signaler mon arrivée</a></li>
+                <li><a href="/conges/demander" className="hover:text-white transition-colors">Congé académique</a></li>
+                <li><a href="/billets/demander" className="hover:text-white transition-colors">Billet de voyage</a></li>
                 <li><a href="/doleances/soumettre" className="hover:text-white transition-colors">Doléances</a></li>
                 <li><a href="/signalements/soumettre" className="hover:text-white transition-colors flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Signalement urgence</a></li>
               </ul>

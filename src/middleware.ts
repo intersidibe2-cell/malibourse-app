@@ -22,6 +22,9 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/presentation") ||
     pathname.startsWith("/espace-ressortissant") ||
     pathname.startsWith("/login") ||
+    pathname.startsWith("/signalements") ||
+    pathname.startsWith("/conges") ||
+    pathname.startsWith("/billets") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/upload");

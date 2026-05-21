@@ -4,7 +4,7 @@ import { query } from "@/lib/db";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { profil, nom, prenom, numero_passeport, email, telephone_rus, ...rest } = body;
+    const { profil, nom, prenom, numero_passeport, email, telephone_rus, photo_id, passeport_id, ...rest } = body;
 
     if (!nom || !prenom || !numero_passeport) {
       return NextResponse.json({ error: "Nom, prénom et passeport obligatoires" }, { status: 400 });
@@ -37,6 +37,14 @@ export async function POST(request: NextRequest) {
         `INSERT INTO coordonnees_bancaires (etudiant_id, banque, bik, compte) VALUES ($1, $2, $3, $4)`,
         [result.rows[0].id, rest.banque, rest.bik || null, rest.compte]
       );
+    }
+
+    // Link uploaded files to etudiant
+    if (photo_id) {
+      await query(`UPDATE fichiers SET etudiant_id = $1 WHERE id = $2`, [result.rows[0].id, photo_id]);
+    }
+    if (passeport_id) {
+      await query(`UPDATE fichiers SET etudiant_id = $1 WHERE id = $2`, [result.rows[0].id, passeport_id]);
     }
 
     return NextResponse.json({ success: true, id: result.rows[0].id, message: "Inscription réussie" }, { status: 201 });

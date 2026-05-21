@@ -8,7 +8,7 @@ const handler = createEntityHandler({
     "universite", "ville", "type_billet", "annee_academique",
     "date_depart_prevu", "date_retour_prevu", "compagnie_aerienne",
     "numero_vol", "itineraire", "cout_billet", "devise",
-    "statut", "motif_demande", "observations",
+    "statut", "motif_demande", "observations", "pieces_jointes", "email",
   ],
   searchFields: ["etudiant_nom", "etudiant_prenom", "numero_passeport"],
   orderField: "date_demande",
