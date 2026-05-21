@@ -86,7 +86,7 @@ export default function SignalementPage() {
 
           <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-6">
             <p className="text-xs text-red-700">
-              <strong>Urgence immédiate ?</strong> Contactez l&apos;ambassade par téléphone au <strong>+7 (495) 737-84-20</strong>.
+              <strong>Urgence immédiate ?</strong> Contactez l&apos;ambassade par téléphone au <strong>+7 495 951-06-55</strong>.
               Ce formulaire est destiné aux signalements non urgents.
             </p>
           </div>

@@ -11,7 +11,7 @@ import {
   ChevronRight, Star, Phone, Mail, MapPinned, 
   Users, Building2, Award, HeartHandshake, Construction,
   AlertTriangle, QrCode, MessageSquare, ExternalLink,
-  CalendarDays, Plane
+  CalendarDays, Plane, FileText
 } from "lucide-react";
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
@@ -295,45 +295,75 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
         </div>
       </section>
 
-      {/* Contact Info */}
+      {/* Nous trouver */}
       <section className="py-16 bg-white relative">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                <Building2 className="w-5 h-5 text-green-700" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 text-sm">Ambassade du Mali</h4>
-                <p className="text-xs text-gray-500 mt-1">Moscou, Fédération de Russie</p>
-              </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-10 text-center">Nous trouver</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Photo de l'ambassade */}
+            <div className="rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/2/23/Moscow%2C_Novokuznetskaya_11%2C_Embassy_of_Mali.jpg"
+                alt="Ambassade du Mali à Moscou — 11, rue Novokouznetskaïa"
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
             </div>
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                <Phone className="w-5 h-5 text-green-700" />
+            {/* Coordonnées */}
+            <div className="space-y-4">
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-gray-50">
+                <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                  <Building2 className="w-5 h-5 text-green-700" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">Adresse</h4>
+                  <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                    11, rue Novokouznetskaïa (Новокузнецкая улица, 11с1)<br />
+                    District administratif central, Moscou<br />
+                    <span className="text-gray-400">Métro : Novokouznetskaïa / Tretiakovskaïa</span>
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 text-sm">Téléphone (urgence)</h4>
-                <p className="text-xs text-gray-500 mt-1">+7 (495) 737-84-20</p>
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-gray-50">
+                <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-5 h-5 text-green-700" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">Téléphone</h4>
+                  <p className="text-xs text-gray-500 mt-1">
+                    <a href="tel:+74959510655" className="hover:text-green-700 transition-colors">+7 495 951-06-55</a>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                <Mail className="w-5 h-5 text-green-700" />
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-gray-50">
+                <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-5 h-5 text-green-700" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">Fax</h4>
+                  <p className="text-xs text-gray-500 mt-1">+7 495 951-27-84</p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 text-sm">Contact email</h4>
-                <p className="text-xs text-gray-500 mt-1">contact@etudiantsmali.ru</p>
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-gray-50">
+                <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-5 h-5 text-green-700" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-sm">Email</h4>
+                  <p className="text-xs text-gray-500 mt-1">
+                    <a href="mailto:amaliru@mail.ru" className="hover:text-green-700 transition-colors">amaliru@mail.ru</a>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-4 p-6 rounded-xl bg-red-50 hover:bg-red-100 transition-colors border border-red-100">
-              <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
-                <AlertTriangle className="w-5 h-5 text-red-600" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-red-800 text-sm">Signaler un problème</h4>
-                <a href="/signalements/soumettre" className="text-xs text-red-600 underline mt-1 block">Formulaire de signalement →</a>
+              <div className="flex items-start gap-4 p-5 rounded-xl bg-red-50 border border-red-100">
+                <div className="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
+                  <AlertTriangle className="w-5 h-5 text-red-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-red-800 text-sm">Signaler un problème</h4>
+                  <a href="/signalements/soumettre" className="text-xs text-red-600 underline mt-1 block">Formulaire de signalement →</a>
+                </div>
               </div>
             </div>
           </div>
@@ -355,7 +385,7 @@ Nous œuvrons chaque jour pour une diplomatie de proximité au service de notre 
                 </div>
               </div>
               <p className="text-green-300 text-sm leading-relaxed max-w-md">
-                Plateforme numérique de gestion des ressortissants maliens en Fédération de Russie.
+                11, rue Novokouznetskaïa, Moscou — Plateforme numérique de gestion des ressortissants maliens en Fédération de Russie.
                 Service de l'Ambassade de la République du Mali en Fédération de Russie.
               </p>
             </div>
