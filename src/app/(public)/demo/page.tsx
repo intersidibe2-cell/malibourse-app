@@ -6,6 +6,7 @@ import {
   CalendarDays, Plane, CalendarCheck, IdCard, HelpCircle, Download,
   Wallet, Search, User, MessageSquare, AlertTriangle, Megaphone,
   CheckCircle, ExternalLink, Globe, QrCode, Printer,
+  Landmark, Eye, Calculator, Users, Building2,
 } from "lucide-react";
 
 const QR_SIZE = 280;
@@ -176,47 +177,121 @@ export default function DemoPage() {
           </div>
         </div>
 
-        {/* Architecture */}
+        {/* Utilité par profil */}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 md:p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">Architecture de la plateforme</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-green-50 rounded-xl border border-green-200 p-5">
-              <h3 className="font-semibold text-green-800 text-sm mb-3 flex items-center gap-2">
-                <Globe className="w-4 h-4" /> Public — Ressortissants
-              </h3>
-              <ul className="space-y-1.5 text-xs text-green-700">
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Inscription en ligne</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Demandes (congé, billet, RDV, passeport)</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Signalements et doléances</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> FAQ, téléchargements, actualités</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Suivi des demandes par référence</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Espace étudiant personnel</li>
-              </ul>
+          <h2 className="text-xl font-bold text-gray-900 mb-2">Utilité pour chaque profil</h2>
+          <p className="text-sm text-gray-500 mb-6">Ce que chaque acteur peut faire concrètement avec la plateforme</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Ambassadeur */}
+            <div className="bg-amber-50 rounded-xl border border-amber-200 p-5 md:col-span-2">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center shadow-md shrink-0">
+                  <Landmark className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-base font-bold text-amber-900">Ambassadeur</h3>
+                    <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-amber-200 text-amber-800">Supervision</span>
+                  </div>
+                  <p className="text-xs text-amber-700 leading-relaxed mb-3">
+                    Vision complète et en temps réel de la communauté malienne en Russie.
+                    Plus besoin d'attendre des rapports papier — tout est accessible depuis un tableau de bord unique.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <div className="bg-white/70 rounded-lg p-3 border border-amber-100">
+                      <div className="text-lg font-bold text-amber-800">360°</div>
+                      <div className="text-[10px] text-amber-600">Vision globale de tous les services et modules</div>
+                    </div>
+                    <div className="bg-white/70 rounded-lg p-3 border border-amber-100">
+                      <div className="text-lg font-bold text-amber-800">1 clic</div>
+                      <div className="text-[10px] text-amber-600">Valider ou refuser une inscription, suivre les alertes</div>
+                    </div>
+                    <div className="bg-white/70 rounded-lg p-3 border border-amber-100">
+                      <div className="text-lg font-bold text-amber-800">Export</div>
+                      <div className="text-[10px] text-amber-600">Rapports Excel pour le Ministère de tutelle</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Comptable */}
+            <div className="bg-emerald-50 rounded-xl border border-emerald-200 p-5">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center shadow shrink-0">
+                  <Calculator className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-sm font-bold text-emerald-900">Agent Comptable</h3>
+                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-200 text-emerald-800">Finances</span>
+                  </div>
+                  <ul className="space-y-1 text-xs text-emerald-700">
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Suivi des paiements mensuels de bourse</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Historique des versements par étudiant</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Génération de fichiers bancaires (Excel)</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Tableau de bord des montants versés</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Pas de saisie manuelle → gagne des heures/semaine</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Conseiller Culturel */}
             <div className="bg-blue-50 rounded-xl border border-blue-200 p-5">
-              <h3 className="font-semibold text-blue-800 text-sm mb-3 flex items-center gap-2">
-                <User className="w-4 h-4" /> Administration — Ambassade
-              </h3>
-              <ul className="space-y-1.5 text-xs text-blue-700">
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> 6 profils (Ambassadeur, Culturel, Comptable…)</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Gestion complète des étudiants</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Paiements et bourses</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Statistiques et exports Excel</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Validation des inscriptions</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Génération de QR codes</li>
-              </ul>
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow shrink-0">
+                  <GraduationCap className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-sm font-bold text-blue-900">Conseiller Culturel</h3>
+                    <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-blue-200 text-blue-800">Étudiants</span>
+                  </div>
+                  <ul className="space-y-1 text-xs text-blue-700">
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Gestion des inscriptions étudiantes en ligne</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Validation des dossiers (boursiers + contractuels)</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Publication d'annonces et communiqués</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Suivi des congés académiques</li>
+                    <li className="flex items-start gap-1.5"><CheckCircle className="w-3 h-3 mt-0.5 shrink-0" /> Plus de paperasse — tout est numérique</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className="bg-purple-50 rounded-xl border border-purple-200 p-5">
-              <h3 className="font-semibold text-purple-800 text-sm mb-3 flex items-center gap-2">
-                <GraduationCap className="w-4 h-4" /> Partenaire — Ministère
-              </h3>
-              <ul className="space-y-1.5 text-xs text-purple-700">
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Dashboard dédié</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Statistiques par université et filière</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Propositions d'étudiants</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Export Excel</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Suivi des bourses</li>
-              </ul>
+
+            {/* Ministère (Bamako) */}
+            <div className="bg-purple-50 rounded-xl border border-purple-200 p-5 md:col-span-2">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center shadow-md shrink-0">
+                  <Building2 className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-base font-bold text-purple-900">Ministère de l'Éducation Supérieure — Bamako</h3>
+                    <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-purple-200 text-purple-800">Tutelle</span>
+                  </div>
+                  <p className="text-xs text-purple-700 leading-relaxed mb-3">
+                    Accès distant depuis Bamako aux données des boursiers maliens en Russie.
+                    Fini les appels téléphoniques et les courriers — le Ministère consulte en temps réel
+                    les effectifs, les universités fréquentées, les filières et le budget alloué.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <div className="bg-white/70 rounded-lg p-3 border border-purple-100">
+                      <div className="text-lg font-bold text-purple-800">Temps réel</div>
+                      <div className="text-[10px] text-purple-600">Effectifs, universités, filières mis à jour en direct</div>
+                    </div>
+                    <div className="bg-white/70 rounded-lg p-3 border border-purple-100">
+                      <div className="text-lg font-bold text-purple-800">Propositions</div>
+                      <div className="text-[10px] text-purple-600">Le Ministère propose, l'Ambassade valide</div>
+                    </div>
+                    <div className="bg-white/70 rounded-lg p-3 border border-purple-100">
+                      <div className="text-lg font-bold text-purple-800">Budget</div>
+                      <div className="text-[10px] text-purple-600">Suivi des bourses versées, exports Excel</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
