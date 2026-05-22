@@ -215,7 +215,7 @@ export default function DemoPage() {
                 <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Statistiques par université et filière</li>
                 <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Propositions d'étudiants</li>
                 <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Export Excel</li>
-                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" Suivi des bourses</li>
+                <li className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3" /> Suivi des bourses</li>
               </ul>
             </div>
           </div>
